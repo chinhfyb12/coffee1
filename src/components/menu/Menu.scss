@@ -1,0 +1,49 @@
+.box-menu {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 999;
+    width: 100%;
+    .navbar {
+        background: #f3f3f3;
+        width: fit-content;
+        position: relative;
+        height: 100vh;
+        padding: 4rem 3rem;
+        .close-btn {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+        }
+        .navbar-nav {
+            flex-direction: column;
+            width: max-content;
+            .nav-item {
+                margin: 0;
+                font-size: 1.2rem;
+                .nav-link {
+                    color: #5d5d5d;
+                    transition: .3s;
+                    &:hover {
+                        color: #a96536;
+                    }
+                    .check {
+                        transform: rotate(90deg);
+                        transition: .3s;
+                    }
+                }
+                .navbar__2 {
+                    padding: 0;
+                    .nav-link {
+                        font-size: 1.1rem;
+                    }
+                }
+            }
+        }
+    }
+    .menu-cpn__span {
+        width: inherit;
+        height: 100vh;
+        background: #00000078;
+    }
+}

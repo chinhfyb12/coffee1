@@ -1,23 +1,30 @@
-import logo from './logo.svg';
+import React from 'react';
 import './App.css';
+import Footer from './components/footer/Footer';
+import Header from './components/header/Header';
+import Products from './components/products/Products';
+import SaveMoney from './components/saveMoney/SaveMoney';
 
 function App() {
+  const listNameProducts = ['cà phê trung nguyên cao cấp', 'cà phê rang xay']
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+    <div className="container-fluid">
+      <header>
+        <Header />
       </header>
+      <section>
+        {
+          listNameProducts.map((name, index) => {
+            return <Products 
+              key={index}
+              order={index + 1}
+              nameProducts={name}
+            />
+          })
+        }
+        <SaveMoney />
+      </section>
+      <Footer />
     </div>
   );
 }

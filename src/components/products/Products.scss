@@ -1,0 +1,45 @@
+.products {
+    padding: 0;
+    width: 100%;
+    .list-products {
+        display: flex;
+        padding: 0;
+        border-bottom: 1px solid #efefef;
+        margin: 0;
+        li {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            &.title-product {
+                width: 31%;
+                background: #3fb04a url('https://www.lwrfarmersmarket.org/mm5/themes/luxe/images/speckled-bg.png') no-repeat 0% 100%;
+                h1 {
+                    color: white;
+                    letter-spacing: 2px;
+                    margin-bottom: 20px;
+                    text-transform: uppercase;
+                    text-align: center;
+                    padding: 0 10px;
+                    font-family: 'Oswald', sans-serif;
+                }
+                a {
+                    color: white;
+                    border: 1px solid white;
+                    padding: 4px 25px;
+                    letter-spacing: 5px;
+                    transition: .3s;
+                    &:hover {
+                        background: white;
+                        color: #3fb04a;
+                    }
+                }
+            }
+        }
+        &.order-2 {
+            .title-product {
+                order: 1;
+            }
+        }
+    }
+}

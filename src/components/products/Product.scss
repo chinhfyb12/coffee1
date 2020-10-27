@@ -1,0 +1,44 @@
+.product {
+    width: 23%;
+    border-right: 1px solid #efefef;
+    .card {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border: none;
+        width: 100%;
+        padding: 25px;
+        .box-img {
+            text-align: center;
+        }
+        img {
+            width: 80%;
+        }
+        .card-body {
+            .card-title {
+                margin: 0;
+                font-size: 1.2rem;
+                text-align: center;
+            }
+            .price {
+                text-align: center;
+            }
+            .add {
+                margin: 0;
+                background: #e6dcce;
+                transition: .2s;
+                &:hover {
+                    transform: translateY(-2px);
+                    box-shadow:
+                        0 1.2px 2.2px rgba(0, 0, 0, 0.014),
+                        0 3px 5.3px rgba(0, 0, 0, 0.021),
+                        0 5.6px 10px rgba(0, 0, 0, 0.026),
+                        0 10.1px 17.9px rgba(0, 0, 0, 0.032),
+                        0 18.8px 33.4px rgba(0, 0, 0, 0.042),
+                        0 45px 80px rgba(0, 0, 0, 0.07)
+                    ;                  
+                }
+            }
+        }
+    }
+}
