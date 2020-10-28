@@ -4,38 +4,55 @@
     left: 0;
     z-index: 999;
     width: 100%;
-    .navbar {
-        background: #f3f3f3;
-        width: fit-content;
-        position: relative;
-        height: 100vh;
-        padding: 4rem 3rem;
-        .close-btn {
-            position: absolute;
-            top: 15px;
-            right: 20px;
+    .box {
+        position: absolute;
+        transition: .3s;
+        transform: translateX(-100%);
+        &.show {
+            transform: translateX(0);
         }
-        .navbar-nav {
+        .navbar {
+            background: #f3f3f3;
+            width: fit-content;
+            position: relative;
+            height: 100vh;
+            padding: 4rem 3rem;
             flex-direction: column;
-            width: max-content;
-            .nav-item {
-                margin: 0;
-                font-size: 1.2rem;
-                .nav-link {
-                    color: #5d5d5d;
-                    transition: .3s;
-                    &:hover {
-                        color: #a96536;
-                    }
-                    .check {
-                        transform: rotate(90deg);
-                        transition: .3s;
-                    }
-                }
-                .navbar__2 {
-                    padding: 0;
+            .close-btn {
+                position: absolute;
+                top: 15px;
+                right: 20px;
+            }
+            h1 {
+                font: 1.8rem 'Oswald', sans-serif;
+                font-weight: bold;
+                color: #9c500f;
+            }
+            .navbar-nav {
+                flex-direction: column;
+                width: max-content;
+                .nav-item {
+                    margin: 0;
+                    font-size: 1.2rem;
                     .nav-link {
-                        font-size: 1.1rem;
+                        color: #5d5d5d;
+                        transition: .3s;
+                        &:hover {
+                            color: #a96536;
+                        }
+                        span {
+                            transition: .3s;
+                            &.check {
+                                transform: rotate(90deg);
+                                transition: .3s;
+                            }
+                        }
+                    }
+                    .navbar__2 {
+                        padding: 0;
+                        .nav-link {
+                            font-size: 1.1rem;
+                        }
                     }
                 }
             }

@@ -12,7 +12,7 @@ function Navbar(props) {
             <Menu />
             <ul className="navbar-nav">
                 <div className="box1">
-                    <li className="nav-item">
+                    <li className="nav-item" onClick={ () => props.hideMenu() }>
                         <i className="fas fa-bars"></i>
                     </li>
                     <li className="nav-item" onClick={ () => props.changeStatusSearchForm() }>
@@ -42,7 +42,8 @@ const mapStateToProps = state => {
 }
 const mapDispatchToProps = dispatch => {
     return {
-        changeStatusSearchForm: () => dispatch({type: 'STATUS_FORM'})
+        changeStatusSearchForm: () => dispatch({type: 'STATUS_FORM'}),
+        hideMenu: () => dispatch({type: "CHANGE_STATUS_MENU"})
     }
 }
 

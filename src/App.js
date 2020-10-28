@@ -1,15 +1,16 @@
 import React from 'react';
 import './App.css';
 import Footer from './components/footer/Footer';
-import Header from './components/header/Header';
-import Products from './components/products/Products';
-import SaveMoney from './components/saveMoney/SaveMoney';
+import Login from './components/login/Login';
+// import Header from './components/header/Header';
+// import Products from './components/products/Products';
+// import SaveMoney from './components/saveMoney/SaveMoney';
 
 function App() {
-  const listNameProducts = ['cà phê trung nguyên cao cấp', 'cà phê rang xay']
+  // const listNameProducts = ['cà phê trung nguyên cao cấp', 'cà phê rang xay']
   return (
     <div className="container-fluid">
-      <header>
+      {/* <header>
         <Header />
       </header>
       <section>
@@ -23,7 +24,8 @@ function App() {
           })
         }
         <SaveMoney />
-      </section>
+      </section> */}
+      <Login />
       <Footer />
     </div>
   );
