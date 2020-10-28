@@ -1,0 +1,71 @@
+.box-login {
+    .row {
+        width: 100%;
+        .box-svg {
+            padding: 0 7rem;
+            .box {
+                svg {
+                    width: 100%;
+                }
+            }
+        }
+        .login {
+            .box {
+                form {
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center;
+                    align-items: center;
+                    background: linear-gradient(45deg, #cb77ff, #a56dff);
+                    padding: 2rem;
+                    border-radius: 15px;
+                    h2 {
+                        font: 1.8rem 'Oswald', sans-serif;
+                        font-weight: bold;
+                        color: white;
+                    }
+                    input {
+                        border: none;
+                        outline: none;
+                        background: none;
+                        margin-bottom: 15px;
+                        border-bottom: 1px solid #ebcbff;
+                        border-radius: 0;
+                        color: white;
+                        &:focus {
+                            outline: none;
+                            box-shadow: none;
+                        }
+                        &::placeholder {
+                            color: white;
+                            font-size: 13px;
+                        }
+                    }
+                    .box-submit {
+                        .btn {
+                            color: #505050;
+                            border-radius: 8px;
+                            font-size: 14px;
+                            background-color: white;
+                            transition: .3s;
+                            &.submit-login {
+                                margin-right: 10px;
+                            }
+                            &:hover {
+                                transform: translateY(-2px);
+                                box-shadow:
+                                    0 1.7px 2.2px rgba(0, 0, 0, 0.021),
+                                    0 4px 5.3px rgba(0, 0, 0, 0.032),
+                                    0 7.5px 10px rgba(0, 0, 0, 0.037),
+                                    0 13.4px 17.9px rgba(0, 0, 0, 0.044),
+                                    0 25.1px 33.4px rgba(0, 0, 0, 0.055),
+                                    0 60px 80px rgba(0, 0, 0, 0.07)
+                                    ;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
