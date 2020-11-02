@@ -1,6 +1,7 @@
 import React from 'react';
 import './App.css';
 import Cart from './components/cart/Cart';
+// import CheckOut from './components/checkout/CheckOut';
 import Footer from './components/footer/Footer';
 // import Login from './components/login/Login';
 // import Header from './components/header/Header';
@@ -26,6 +27,7 @@ function App() {
       </section> */}
       {/* <Login /> */}
       <Cart />
+      {/* <CheckOut /> */}
       <Footer />
     </div>
   );

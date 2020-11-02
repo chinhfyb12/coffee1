@@ -1,26 +1,49 @@
-import React from "react";
+import React, { useState } from "react";
 import Navbar from "../navbar/Navbar";
 import "./Cart.css";
 import CartItem from "./CartItem";
 
 function Cart() {
+
   const listProducts = [
     {
+      id: 0,
       imgUrl:
         "https://www.lwrfarmersmarket.org/mm5/graphics/00000001/medium%20whole_test.png",
       name: "Cà phê 1",
-      price: "10000000",
+      price: "100",
       quantity: 1,
     },
     {
+      id: 1,
       imgUrl:
         "https://www.lwrfarmersmarket.org/mm5/graphics/00000001/medium%20whole_test.png",
       name: "Cà phê 1",
-      price: "10000000",
+      price: "300",
       quantity: 1,
     },
   ];
 
+  const [products, setProducts] = useState(listProducts);
+
+
+  function getQuantityChange(productChange) {
+    const listTemp = [...products];
+    const index = listTemp.findIndex(item => parseInt(item.id) === parseInt(productChange.id));
+    if(index < 0) return;
+    if(listTemp) {
+      listTemp[index].quantity = productChange.quantity;
+      setProducts(listTemp);
+    }
+  }
+  function getProductDelete(id) {
+    const index = products.findIndex(item => parseInt(item.id) === parseInt(id));
+    if(index < 0) return;
+    const listTemp = [...products];
+    listTemp.splice(index, 1);
+    setProducts(listTemp);
+  }
+  
   return (
     <>
       <Navbar />
@@ -35,24 +58,32 @@ function Cart() {
             <li className="nav-item">Số lượng</li>
             <li className="nav-item">Thành tiền</li>
           </ul>
-          <ul className="list-product">
-            {listProducts.map((item, index) => {
-              return (
-                <CartItem
-                  key={index}
-                  name={item.name}
-                  price={item.price}
-                  imgUrl={item.imgUrl}
-                  quantity={item.quantity}
-                />
-              );
-            })}
+          <ul className="list-products">
+            {
+              products.map(item => {
+                return (
+                  <CartItem
+                    key={item.id}
+                    id={item.id}
+                    name={item.name}
+                    price={item.price}
+                    imgUrl={item.imgUrl}
+                    quantity={item.quantity}
+                    quantityChange={ getQuantityChange }
+                    getProductDelete={ getProductDelete }
+                  />
+                );
+              })
+            }
           </ul>
         </div>
         <div className="col-4 box-total">
           <span></span>
-          <p className="cart-total">
-            Tổng tiền: <span>{900000}</span> ₫
+            <p className="cart-total">Tổng tiền: <span>
+              {
+                products.reduce((acc, current) => acc + parseInt(current.price)*parseInt(current.quantity), 0)
+              }
+            </span> ₫
           </p>
           <p className="note"><i>Mua hàng và thuế ở danh mục thanh toán</i></p>
           <div className="btn">THANH TOÁN</div>

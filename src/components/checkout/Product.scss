@@ -1,0 +1,13 @@
+.product {
+    .img {
+        position: relative;
+        span {
+            position: absolute;
+            padding: 4px;
+            border-radius: 50%;
+            background: wheat;
+            top: -50%;
+            right: 50%;
+        }
+    }
+}
