@@ -9,7 +9,7 @@ function Product(props) {
                 <span>{ props.quantity }</span>
             </p>
             <p className="name"> { props.name } </p>
-            <p className="price"> { props.price } </p>
+            <p className="price"> { props.price } ₫</p>
         </li>
     )
 }

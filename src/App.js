@@ -1,8 +1,10 @@
 import React from 'react';
 import './App.css';
-import Cart from './components/cart/Cart';
+// import Cart from './components/cart/Cart';
 // import CheckOut from './components/checkout/CheckOut';
 import Footer from './components/footer/Footer';
+import ProductDetail from './components/productdetail/ProductDetail';
+// import ListProducts from './components/listproducts/ListProducts';
 // import Login from './components/login/Login';
 // import Header from './components/header/Header';
 // import Products from './components/products/Products';
@@ -26,8 +28,10 @@ function App() {
         <SaveMoney />
       </section> */}
       {/* <Login /> */}
-      <Cart />
+      {/* <Cart /> */}
       {/* <CheckOut /> */}
+      {/* <ListProducts /> */}
+      <ProductDetail />
       <Footer />
     </div>
   );

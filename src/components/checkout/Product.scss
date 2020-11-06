@@ -1,13 +1,28 @@
 .product {
-    .img {
-        position: relative;
-        span {
-            position: absolute;
-            padding: 4px;
-            border-radius: 50%;
-            background: wheat;
-            top: -50%;
-            right: 50%;
+    margin-bottom: 20px;
+    p {
+        margin: 0;
+        &.img {
+            position: relative;
+            width: 85px;
+            border: 1px solid #d4d4d4;
+            border-radius: 5px;
+            span {
+                position: absolute;
+                border-radius: 50%;
+                width: 25px;
+                background: #e4e4e4;
+                height: 25px;
+                text-align: center;
+                right: -10px;
+                top: -10px;
+            }
+        }
+        &.name {
+            width: 45%;
+            margin-left: 10px;
+            font-weight: bold;
+            color: #af744b;
         }
     }
 }

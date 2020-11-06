@@ -11,8 +11,10 @@ function CartItem(props) {
         props.quantityChange({...product, quantity: product.quantity + 1});
     }
     function handleClickSubtract() {
-        setProduct({...product, quantity: product.quantity - 1});
-        props.quantityChange({...product, quantity: product.quantity - 1});
+        if(product.quantity > 1) {
+            setProduct({...product, quantity: product.quantity - 1});
+            props.quantityChange({...product, quantity: product.quantity - 1});
+        }
     }
     function handleGetProduct(id) {
         props.getProductDelete(id)
