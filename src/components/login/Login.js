@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import Navbar from '../navbar/Navbar';
 import './Login.css';
 
 function Login() {
@@ -8,7 +7,6 @@ function Login() {
 
     return (
         <>
-            <Navbar />
             <div className="container-fluid box-login">
                 <div className="row">
                     <div className="box-svg col-7">

@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import Product from '../home/products/Product';
-import Navbar from '../navbar/Navbar';
 import './ListProducts.css';
 
 function ListProducts() {
@@ -57,8 +56,7 @@ function ListProducts() {
 
     return (
         <>
-            <Navbar />
-            <div className="row">
+            <div className="row container-products">
                 <h3>Cà phê rang xay</h3>
                 <ul className="list-products">
                     {

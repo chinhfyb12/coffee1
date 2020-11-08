@@ -1,4 +1,11 @@
-.box-title {
+.box-container {
+  position: relative;
+  background: url("./hinh-banner-trang-chu.png");
+  background-size: cover;
+  height: 100vh;
+}
+
+.box-container .box-title {
   width: 475px;
   padding: 25px;
   position: absolute;
@@ -7,7 +14,7 @@
   background: #ffffffbf;
 }
 
-.box-title .btn {
+.box-container .box-title .btn {
   padding-left: 0;
   padding-right: 0;
   letter-spacing: 6px;
@@ -16,18 +23,18 @@
   transition: .3s;
 }
 
-.box-title .btn:hover {
+.box-container .box-title .btn:hover {
   color: #730c9e;
 }
 
-.box-title .title {
+.box-container .box-title .title {
   font-size: 2.5rem;
   color: #4b3d3d;
   font-weight: lighter;
   line-height: 3.5rem;
 }
 
-.box-title .title span {
+.box-container .box-title .title span {
   font-weight: bold;
 }
 /*# sourceMappingURL=Header.css.map */

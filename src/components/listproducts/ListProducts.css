@@ -1,14 +1,14 @@
-.row {
+.container-products {
   width: 100%;
   margin: 0;
   padding: 2rem 0;
 }
 
-.row h3 {
+.container-products h3 {
   padding: 1rem;
 }
 
-.row .list-products {
+.container-products .list-products {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -17,18 +17,18 @@
   padding: 0;
 }
 
-.row .list-products .product {
+.container-products .list-products .product {
   width: 20%;
   border: none;
   padding: 1rem;
 }
 
-.row .list-products .product .card {
+.container-products .list-products .product .card {
   background: #f7f5f0;
   border-radius: 15px;
 }
 
-.row nav {
+.container-products nav {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -38,26 +38,26 @@
           justify-content: center;
 }
 
-.row nav .pagination .page-item {
+.container-products nav .pagination .page-item {
   margin: 0 1px;
 }
 
-.row nav .pagination .page-item .page-link {
+.container-products nav .pagination .page-item .page-link {
   color: black;
   background-color: white;
   border: 1px solid #e4e4e4;
 }
 
-.row nav .pagination .page-item .page-link:hover {
+.container-products nav .pagination .page-item .page-link:hover {
   border: 1px solid #a0a0a0;
 }
 
-.row nav .pagination .page-item .page-link.page {
+.container-products nav .pagination .page-item .page-link.page {
   -webkit-transition: .3s;
   transition: .3s;
 }
 
-.row nav .pagination .page-item.active .page-link {
+.container-products nav .pagination .page-item.active .page-link {
   background: #a0a0a0;
   color: white;
 }

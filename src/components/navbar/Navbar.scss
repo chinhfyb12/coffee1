@@ -1,7 +1,7 @@
 .navbar {
     width: 100%;
     padding: 3rem 6rem;
-    background-color: linear-gradient(180deg, white, transparent);
+    z-index: 999;
     .navbar-nav {
         width: 100%;
         display: flex;

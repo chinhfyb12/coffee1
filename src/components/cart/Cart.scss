@@ -1,7 +1,8 @@
 .box-cart {
     width: 100%;
     margin: 0;
-    .products {
+    padding-top: 1rem;
+    &__products {
         padding: 4rem;
         background: #fbf4ff;
         h2 {
@@ -26,7 +27,7 @@
                 bottom: 0;
             }
         }
-        ul {
+        > ul {
             &.list-title {
                 li {
                     width: 20%;
@@ -37,6 +38,7 @@
                 }
             }
             &.list-products {
+                flex-direction: column;
                 li {
                     display: flex;
                     margin-bottom: 30px;

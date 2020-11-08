@@ -1,19 +1,19 @@
-.product {
+.product-checkout {
   margin-bottom: 20px;
 }
 
-.product p {
+.product-checkout p {
   margin: 0;
 }
 
-.product p.img {
+.product-checkout p.img {
   position: relative;
   width: 85px;
   border: 1px solid #d4d4d4;
   border-radius: 5px;
 }
 
-.product p.img span {
+.product-checkout p.img span {
   position: absolute;
   border-radius: 50%;
   width: 25px;
@@ -24,7 +24,7 @@
   top: -10px;
 }
 
-.product p.name {
+.product-checkout p.name {
   width: 45%;
   margin-left: 10px;
   font-weight: bold;

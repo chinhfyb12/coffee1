@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import Product from '../home/products/Product';
-import Navbar from '../navbar/Navbar';
 import './ProductDetail.css';
 
 function ProductDetail() {
@@ -60,7 +59,6 @@ function ProductDetail() {
 
     return(
         <>
-            <Navbar/>
             <div className="row product-detail">
                 <div className="col-6 img-product">
                     <p className="img">

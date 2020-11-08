@@ -1,39 +1,22 @@
 import React from 'react';
 import './App.css';
-// import Cart from './components/cart/Cart';
-// import CheckOut from './components/checkout/CheckOut';
 import Footer from './components/footer/Footer';
-import ProductDetail from './components/productdetail/ProductDetail';
-// import ListProducts from './components/listproducts/ListProducts';
-// import Login from './components/login/Login';
-// import Header from './components/header/Header';
-// import Products from './components/products/Products';
-// import SaveMoney from './components/saveMoney/SaveMoney';
+import './components/navbar/Navbar.css';
+import './components/cart/Cart.css';
+import Navbar from './components/navbar/Navbar';
+import { BrowserRouter as Router } from "react-router-dom";
+import RouterURL from './components/router/RouterURL';
 
 function App() {
-  // const listNameProducts = ['cà phê trung nguyên cao cấp', 'cà phê rang xay']
+
   return (
-    <div className="container-fluid">
-      {/* <Header />
-      <section>
-        {
-          listNameProducts.map((name, index) => {
-            return <Products 
-              key={index}
-              order={index + 1}
-              nameProducts={name}
-            />
-          })
-        }
-        <SaveMoney />
-      </section> */}
-      {/* <Login /> */}
-      {/* <Cart /> */}
-      {/* <CheckOut /> */}
-      {/* <ListProducts /> */}
-      <ProductDetail />
-      <Footer />
-    </div>
+    <Router>
+      <div className="container-fluid">
+        <Navbar />
+        <RouterURL />
+        <Footer />
+      </div>
+    </Router>
   );
 }
 

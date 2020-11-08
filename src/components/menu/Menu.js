@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import './Menu.css';
 
 function Menu(props) {
@@ -14,26 +15,26 @@ function Menu(props) {
                     <h1>MENU</h1>
                     <ul className="navbar-nav">
                         <li className="nav-item">
-                            <a href="#1" className="nav-link">Cà phê Trung Nguyên cao cấp</a>
+                            <Link to="/ca-phe-trung-nguyen-cao-cap" className="nav-link">Cà phê Trung Nguyên cao cấp</Link>
                         </li>
                         <li className="nav-item"  data-toggle="collapse" href="#nav_2" onClick={ () => setMenu2(!menu2) }>
-                            <a href="#1" className="nav-link d-flex">Cà phê rang xay  <span className={ `d-flex align-items-center mr-0 ml-auto ${ menu2 ? 'check' : '' }` }><i className="fas fa-angle-right"></i></span></a>
+                            <Link to="/ca-phe-rang-xay" className="nav-link d-flex">Cà phê rang xay  <span className={ `d-flex align-items-center mr-0 ml-auto ${ menu2 ? 'check' : '' }` }><i className="fas fa-angle-right"></i></span></Link>
                             <nav className="navbar__2 collapse" id="nav_2">
                                 <ul className="navbar-nav navbar-nav__2">
                                     <li className="nav-item nav-item__2">
-                                        <a href="#1" className="nav-link">Cà phê viên nén Trung Nguyên</a>
+                                        <Link to="/ca-phe-rang-xay/ca-phe-vien-nen-trung-nguyen" className="nav-link">Cà phê viên nén Trung Nguyên</Link>
                                     </li>
                                     <li className="nav-item nav-item__2">
-                                        <a href="#1" className="nav-link">Rang xay phổ thông</a>
+                                        <Link to="/ca-phe-rang-xay/rang-xay-pho-thong" className="nav-link">Rang xay phổ thông</Link>
                                     </li>
                                 </ul>
                             </nav>
                         </li>
                         <li className="nav-item">
-                            <a href="#1" className="nav-link">Cà phê con sóc</a>
+                            <Link to="/ca-phe-con-soc" className="nav-link">Cà phê con sóc</Link>
                         </li>
                         <li className="nav-item">
-                            <a href="#1" className="nav-link">Cà phê hòa tan</a>
+                            <Link to="/ca-phe-hoa-tan" className="nav-link">Cà phê hòa tan</Link>
                         </li>
                     </ul>
                 </nav>

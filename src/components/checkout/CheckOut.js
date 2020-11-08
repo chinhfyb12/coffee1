@@ -1,7 +1,6 @@
 import React from 'react';
 import './CheckOut.css';
 import Product from './Product';
-import Navbar from '../navbar/Navbar';
 
 function CheckOut() {
 
@@ -24,7 +23,6 @@ function CheckOut() {
 
     return (
         <>
-        <Navbar />
             <div className="payment-method">
                 <h2>Thông tin giao hàng</h2>
                 <div className="row">
