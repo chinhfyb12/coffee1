@@ -70,12 +70,13 @@
   color: #a96536;
 }
 
-.box-menu .box .navbar .navbar-nav .nav-item .nav-link span {
+.box-menu .box .navbar .navbar-nav .nav-item span {
   -webkit-transition: .3s;
   transition: .3s;
+  cursor: pointer;
 }
 
-.box-menu .box .navbar .navbar-nav .nav-item .nav-link span.check {
+.box-menu .box .navbar .navbar-nav .nav-item span.check {
   -webkit-transform: rotate(90deg);
           transform: rotate(90deg);
   -webkit-transition: .3s;

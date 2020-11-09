@@ -1,25 +1,26 @@
 import React from 'react';
 import { Switch, Route } from "react-router-dom";
-import Cart from '../cart/Cart';
-import CheckOut from '../checkout/CheckOut';
-import Home from '../home/Home';
-import Login from '../login/Login';
+import routes from '../../routes';
 
 function RouterURL() {
+
+    function showRouterURL(routes) {
+        let result = null;
+        if(routes) {
+            result = routes.map(item => {
+                return (
+                    <Route path={item.path} exact={item.exact}>
+                        { item.main }
+                    </Route>
+                )
+            })
+        }
+        return result;
+    }
+
     return(
         <Switch>
-            <Route path="/" exact>
-                <Home />
-            </Route>
-            <Route path="/login">
-                <Login />
-            </Route>
-            <Route path="/cart">
-                <Cart />
-            </Route>
-            <Route path="/checkout">
-                <CheckOut/>
-            </Route>
+            { showRouterURL(routes) }
         </Switch>
     )
 }

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import "./Cart.css";
 import CartItem from "./CartItem";
+import formatMoney from '../../FormatMoney';
 import { Link } from "react-router-dom";
 
 function Cart() {
@@ -11,7 +12,7 @@ function Cart() {
       imgUrl:
         "https://www.lwrfarmersmarket.org/mm5/graphics/00000001/medium%20whole_test.png",
       name: "Cà phê 1",
-      price: "100",
+      price: "1000000",
       quantity: 1,
     },
     {
@@ -80,7 +81,7 @@ function Cart() {
           <span></span>
             <p className="cart-total">Tổng tiền: <span>
               {
-                products.reduce((acc, current) => acc + parseInt(current.price)*parseInt(current.quantity), 0)
+                formatMoney(products.reduce((acc, current) => acc + parseInt(current.price)*parseInt(current.quantity), 0))
               }
             </span> ₫
           </p>

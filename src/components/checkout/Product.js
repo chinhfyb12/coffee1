@@ -1,5 +1,6 @@
 import React from 'react';
 import './Product.css';
+import formatMoney from '../../FormatMoney';
 
 function Product(props) {
     return(
@@ -9,7 +10,7 @@ function Product(props) {
                 <span>{ props.quantity }</span>
             </p>
             <p className="name"> { props.name } </p>
-            <p className="price"> { props.price } ₫</p>
+            <p className="price"> { formatMoney(props.price) } ₫</p>
         </li>
     )
 }

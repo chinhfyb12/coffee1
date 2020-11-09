@@ -1,6 +1,7 @@
 import React from 'react';
 import './CheckOut.css';
 import Product from './Product';
+import formatMoney from '../../FormatMoney';
 
 function CheckOut() {
 
@@ -64,7 +65,7 @@ function CheckOut() {
                         <div className="total">Tổng cộng: 
                             <span>
                                 { 
-                                    listProducts.reduce((acc, current) => acc + parseInt(current.price) * parseInt(current.quantity), 0)
+                                    formatMoney(listProducts.reduce((acc, current) => acc + parseInt(current.price) * parseInt(current.quantity), 0))
                                 } ₫
                             </span>
                         </div>

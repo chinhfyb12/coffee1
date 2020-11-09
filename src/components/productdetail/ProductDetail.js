@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import Product from '../home/products/Product';
 import './ProductDetail.css';
+import formatMoney from '../../FormatMoney';
 
 function ProductDetail() {
 
@@ -70,13 +71,13 @@ function ProductDetail() {
                     <p className="codeProduct">Mã sản phẩm: <span>{ product.codeProduct }</span></p>
                     <p className="guarantee">Bảo hành: <span>{ product.guarantee } tháng</span></p>
                     <p className="intro"><span>{ product.intro }</span></p>
-                    <p className="price">Giá sản phẩm: <span>{ product.price } ₫</span></p>
+                    <p className="price">Giá sản phẩm: <span>{ formatMoney(product.price) } ₫</span></p>
                     <div className="box-quantity">
                         <div className="btn" onClick={ () => handleClickSubtract() }>-</div>
                         <span className="quantity">{ product.quantity }</span>
                         <div className="btn" onClick={ () => handleClickAdd() }>+</div>
                     </div>
-                    <p className="total">Tổng tiền: <span>{ (product.price) * (product.quantity) } ₫</span></p>
+                    <p className="total">Tổng tiền: <span>{ formatMoney((product.price) * (product.quantity)) } ₫</span></p>
                     <div className="box-checkout">
                         <div className="btn add-cart">Add to cart</div>
                         <div className="btn buy">Buy now</div>

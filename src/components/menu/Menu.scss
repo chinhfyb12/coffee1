@@ -40,12 +40,13 @@
                         &:hover {
                             color: #a96536;
                         }
-                        span {
+                    }
+                    span {
+                        transition: .3s;
+                        cursor: pointer;
+                        &.check {
+                            transform: rotate(90deg);
                             transition: .3s;
-                            &.check {
-                                transform: rotate(90deg);
-                                transition: .3s;
-                            }
                         }
                     }
                     .navbar__2 {

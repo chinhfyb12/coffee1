@@ -37,7 +37,7 @@
   width: 165px;
 }
 
-.navbar .navbar-nav .nav-item {
+.navbar .navbar-nav .nav-item__icon {
   margin: 0 30px;
   font-size: 22px;
   cursor: pointer;
@@ -46,7 +46,7 @@
   color: #6d6d6d;
 }
 
-.navbar .navbar-nav .nav-item:hover {
+.navbar .navbar-nav .nav-item__icon:hover {
   color: black;
 }
 /*# sourceMappingURL=Navbar.css.map */

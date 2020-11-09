@@ -1,5 +1,7 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import Product from './Product';
+import Slug from '../../../Slug';
 import './Products.css';
 
 function Products(props) {
@@ -27,7 +29,7 @@ function Products(props) {
             <ul className={"list-products order-" + props.order}>
                 <li className="title-product">
                     <h1>{props.nameProducts}</h1>
-                    <a className="nav-link" href="#1">MORE <i className="fas fa-long-arrow-alt-right"></i></a>
+                    <Link className="nav-link" to={ '/' + Slug(props.nameProducts) }>MORE <i className="fas fa-long-arrow-alt-right"></i></Link>
                 </li>
                 {
                     listProducts.map((product, index) => {

@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import formatMoney from '../../FormatMoney';
 
 function CartItem(props) {
 
@@ -28,13 +29,13 @@ function CartItem(props) {
                 </p>
                 <p className="name">{ props.name }</p>
             </div>
-            <div className="price-product">{ props.price } ₫</div>
+            <div className="price-product">{ formatMoney(props.price) } ₫</div>
             <div className="quantity">
                 <div className="btn" onClick={ () => handleClickSubtract() }>-</div>
                 <span>{ product.quantity }</span>
                 <div className="btn" onClick={ () => handleClickAdd() }>+</div>
             </div>
-            <div className="total">{ (props.price) * product.quantity }</div>
+            <div className="total">{ formatMoney((props.price) * product.quantity) } ₫</div>
             <div className="delete" onClick={ () => handleGetProduct(props.id) }><span className="btn"><i className="fas fa-times"></i></span></div>
         </li>
     )

@@ -13,10 +13,10 @@ function Navbar(props) {
                 <Menu />
                 <ul className="navbar-nav">
                     <div className="box1">
-                        <li className="nav-item" onClick={ () => props.hideMenu() }>
+                        <li className="nav-item__icon" onClick={ () => props.hideMenu() }>
                             <i className="fas fa-bars"></i>
                         </li>
-                        <li className="nav-item" onClick={ () => props.changeStatusSearchForm() }>
+                        <li className="nav-item__icon" onClick={ () => props.changeStatusSearchForm() }>
                             <i className="fas fa-search"></i>
                         </li>
                     </div>
@@ -24,10 +24,10 @@ function Navbar(props) {
                         <Link exact="true" to="/"><img src="/lwr_logo.png" alt="Logo"/></Link>
                     </div>
                     <div className="box2">
-                        <Link to="/login" className="nav-item">
+                        <Link to="/login" className="nav-item__icon">
                             <i className="far fa-user-circle"></i>
                         </Link>
-                        <Link to="/cart" className="nav-item">
+                        <Link to="/cart" className="nav-item__icon">
                             <i className="fas fa-shopping-bag"></i>
                         </Link>
                     </div>
