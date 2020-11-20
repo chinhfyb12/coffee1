@@ -9,7 +9,7 @@ function RouterURL() {
         if(routes) {
             result = routes.map(item => {
                 return (
-                    <Route path={item.path} exact={item.exact}>
+                    <Route key={item.path} path={item.path} exact={item.exact}>
                         { item.main }
                     </Route>
                 )
