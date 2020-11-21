@@ -5,8 +5,8 @@ import './Menu.css';
 
 function Menu(props) {
 
-
     const [menu2, setMenu2] = useState(false);
+
     function handleClickMenu(ref)
     {
         props.hideMenu();
