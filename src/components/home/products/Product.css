@@ -15,21 +15,41 @@
           align-items: center;
   border: none;
   width: 100%;
-  padding: 25px;
+  padding-top: 25px;
+  padding-bottom: 25px;
 }
 
 .product .card .box-img {
   text-align: center;
+  padding: 1rem;
 }
 
 .product .card img {
   width: 80%;
 }
 
+.product .card .card-body {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
 .product .card .card-body .card-title {
   margin: 0;
-  font-size: 1.2rem;
+  font-size: 1.1rem;
   text-align: center;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  -webkit-line-clamp: 2;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
 }
 
 .product .card .card-body .price {
@@ -37,7 +57,7 @@
 }
 
 .product .card .card-body .add {
-  margin: 0;
+  margin: 0 2rem;
   background: #e6dcce;
   -webkit-transition: .2s;
   transition: .2s;

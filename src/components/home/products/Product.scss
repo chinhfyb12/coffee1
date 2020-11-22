@@ -7,24 +7,34 @@
         align-items: center;
         border: none;
         width: 100%;
-        padding: 25px;
+        padding-top: 25px;
+        padding-bottom: 25px;
         .box-img {
             text-align: center;
+            padding: 1rem;
         }
         img {
             width: 80%;
         }
         .card-body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
             .card-title {
                 margin: 0;
-                font-size: 1.2rem;
+                font-size: 1.1rem;
                 text-align: center;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                -webkit-line-clamp: 2;
+                display: -webkit-box;
+                -webkit-box-orient: vertical;
             }
             .price {
                 text-align: center;
             }
             .add {
-                margin: 0;
+                margin: 0 2rem;
                 background: #e6dcce;
                 transition: .2s;
                 &:hover {

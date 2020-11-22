@@ -4,6 +4,7 @@ import Product from '../home/products/Product';
 import './ListProducts.css';
 import dataCoffeeFb from '../../firebase';
 
+
 class ListProducts extends Component {
 
     constructor(props) {
@@ -11,11 +12,11 @@ class ListProducts extends Component {
         this.state = {
             indexPage: 1,
             nameCategory: '',
-            dataCoffee: []
+            dataCoffee: [],
+            indexPageArr: [],
+            refCategory: null
         }
     }
-
-    tempArr = [1, 2];
 
     renderProducts = (listProducts) => {
         if(listProducts) {
@@ -29,35 +30,20 @@ class ListProducts extends Component {
             });
         }
     }
-    // useComponentWillMount(() => {
-    //     if( dataCategory ) {
-    //         setCategory(dataCategory.nameCategory);
-    //     }
-    // })
-
-    // listProducts = [
-    //     {
-    //         id: 0,
-    //         imgUrl: 'https://www.lwrfarmersmarket.org/mm5/graphics/00000001/medium%20whole_test.png',
-    //         name: 'Cà phê 1',
-    //         price: '10000000'
-    //     },
-    //     {
-    //         id: 1,
-    //         imgUrl: 'https://www.lwrfarmersmarket.org/mm5/graphics/00000001/medium%20whole_test.png',
-    //         name: 'Cà phê 2',
-    //         price: '10000000'
-    //     }
-    // ]
 
     handleClickPage = index => {
         this.setState({
             indexPage: index
         })
     }
-
-    UNSAFE_componentWillMount() {
-        dataCoffeeFb.ref('/' + this.props.refCategory).once('value').then(coffee => {
+    UNSAFE_componentWillReceiveProps() {
+        console.log('te')
+        this.setState({
+            refCategory: this.props.refCategory
+        })
+    }
+    UNSAFE_componentWillUpdate() {
+        dataCoffeeFb.ref('/' + this.state.refCategory).once('value').then(coffee => {
             if(coffee.val()) {
                 this.setState({
                     nameCategory: coffee.val().nameCategory
@@ -68,15 +54,49 @@ class ListProducts extends Component {
                     Object.keys(coffee.val().products).forEach(key => {
                         tempData.push(coffee.val().products[key]);
                     })
+                    let index = Math.ceil(tempData.length/10);
+                    let tempIndexArr = [];
+                    for(let i = 1; i <= index; i++) {
+                        tempIndexArr.push(i)
+                    }
                     this.setState({
-                        dataCoffee: tempData
+                        dataCoffee: tempData,
+                        indexPageArr: tempIndexArr
                     })
                 }
             }
         })
     }
 
+    // UNSAFE_componentWillMount() {
+    //     console.log(this.props.refCategory)
+    //     dataCoffeeFb.ref('/' + this.props.refCategory).once('value').then(coffee => {
+    //         if(coffee.val()) {
+    //             this.setState({
+    //                 nameCategory: coffee.val().nameCategory
+    //             });
+    //             if(coffee.val().products) {
+    //                 let tempData = [];
+
+    //                 Object.keys(coffee.val().products).forEach(key => {
+    //                     tempData.push(coffee.val().products[key]);
+    //                 })
+    //                 let index = Math.ceil(tempData.length/10);
+    //                 let tempIndexArr = [];
+    //                 for(let i = 1; i <= index; i++) {
+    //                     tempIndexArr.push(i)
+    //                 }
+    //                 this.setState({
+    //                     dataCoffee: tempData,
+    //                     indexPageArr: tempIndexArr
+    //                 })
+    //             }
+    //         }
+    //     })
+    // }
+
     render() {
+        console.log(this.props.refCategory)
         return (
             <>
                 <div className="row container-products">
@@ -96,7 +116,7 @@ class ListProducts extends Component {
                     <nav aria-label="Page navigation example">
                         <ul className="pagination">
                             {
-                                this.tempArr.map(item => {
+                                this.state.indexPageArr.map(item => {
                                     return <li key={item} className={ this.state.indexPage === item ? 'page-item active' : 'page-item'} onClick={ () => this.handleClickPage(item) } value={item}><div className="page-link page btn">{ item }</div></li>
                                 })
                             }
