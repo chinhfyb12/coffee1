@@ -6,12 +6,8 @@ import './components/cart/Cart.css';
 import Navbar from './components/navbar/Navbar';
 import { BrowserRouter as Router } from "react-router-dom";
 import RouterURL from './components/router/RouterURL';
-// import dataCoffeeFirebase from './firebase';
 
 function App() {
-  // dataCoffeeFirebase.on('value', data => {
-  //   console.log(data.val());
-  // })
   return (
     <Router>
       <div className="container-fluid">

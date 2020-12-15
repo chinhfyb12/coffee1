@@ -21,6 +21,7 @@ function RouterURL() {
     return(
         <Switch>
             { showRouterURL(routes) }
+            { showRouterURL(routes[5].routes) }
         </Switch>
     )
 }

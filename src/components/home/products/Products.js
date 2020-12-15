@@ -1,35 +1,45 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import Product from './Product';
 import Slug from '../../../Slug';
 import './Products.css';
+import { connect } from 'react-redux';
+import useDeepCompareEffect from 'use-deep-compare-effect';
+import db from '../../../firebase';
 
 function Products(props) {
 
-    const listProducts = [
-        {
-            imgUrl: 'https://www.lwrfarmersmarket.org/mm5/graphics/00000001/medium%20whole_test.png',
-            name: 'Cà phê 1',
-            price: '10000000'
-        },
-        {
-            imgUrl: 'https://www.lwrfarmersmarket.org/mm5/graphics/00000001/medium%20whole_test.png',
-            name: 'Cà phê 1',
-            price: '10000000'
-        },
-        {
-            imgUrl: 'https://www.lwrfarmersmarket.org/mm5/graphics/00000001/medium%20whole_test.png',
-            name: 'Cà phê 1',
-            price: '10000000'
-        }
-    ]
+    const [listProducts, setListProducts] = useState([]);
+    
+    useDeepCompareEffect(() => {
+        db.collection('cafe')
+                .where('pathCategory', 'array-contains-any', [Slug(props.nameProducts)])
+                .limit(3)
+                .get()
+                .then(snapshoot => {
+                    if(snapshoot) {
+                        const tempCafes = snapshoot.docs.map(cafe => {
+                            return {
+                                ...cafe.data(),
+                                docKey: cafe.id
+                            }
+                        });
+                        let index = Math.ceil(tempCafes.length/10);
+                        var tempIndexArr = [];
+                        for(let i = 1; i <= index; i++) {
+                            tempIndexArr.push(i)
+                        }
+                        setListProducts(tempCafes);
+                    }
+                })
+    }, [listProducts])
 
     return (
         <div className="products container-fluid">
             <ul className={"list-products order-" + props.order}>
                 <li className="title-product">
                     <h1>{props.nameProducts}</h1>
-                    <Link className="nav-link" to={ '/' + Slug(props.nameProducts) }>MORE <i className="fas fa-long-arrow-alt-right"></i></Link>
+                    <Link onClick={ () => props.sendCategory(props.nameProducts)} className="nav-link" to={ '/' + Slug(props.nameProducts) }>MORE <i className="fas fa-long-arrow-alt-right"></i></Link>
                 </li>
                 {
                     listProducts.map((product, index) => {
@@ -46,5 +56,10 @@ function Products(props) {
     )
 }
 
+const mapDispatchToProps = dispatch => {
+    return {
+        sendCategory: category => dispatch({type: "SEND_CATEGORY", category})
+    }
+}
 
-export default Products;
+export default connect(null, mapDispatchToProps)(Products);

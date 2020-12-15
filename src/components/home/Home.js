@@ -5,7 +5,7 @@ import Products from './products/Products';
 
 function Home() {
 
-    const listNameProducts = ['cà phê trung nguyên cao cấp', 'cà phê rang xay']
+    const listNameProducts = ['Cà phê Trung Nguyên cao cấp', 'Cà phê hòa tan']
 
     return(
         <>

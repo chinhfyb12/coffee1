@@ -1,136 +1,83 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import Product from '../home/products/Product';
 import './ListProducts.css';
-import dataCoffeeFb from '../../firebase';
+import db from '../../firebase';
+import useDeepCompareEffect from 'use-deep-compare-effect';
+import Slug from '../../Slug';
 
+function ListProducts (props) {
+    const [indexPage, setIndexPage] = useState(1);
+    const [cafes, setCafes] = useState([]);
+    const [indexArr, setIndexArr] = useState([1]);
+    // const [nameCategory, setNameCategory] = useState(null);
 
-class ListProducts extends Component {
-
-    constructor(props) {
-        super(props);
-        this.state = {
-            indexPage: 1,
-            nameCategory: '',
-            dataCoffee: [],
-            indexPageArr: [],
-            refCategory: null
-        }
+    function handleClickPage(item) {
+        setIndexPage(item);
     }
 
-    renderProducts = (listProducts) => {
-        if(listProducts) {
-            listProducts.map(item => {
-                return <Product 
-                        key={ item }
-                        name={item.name}
-                        imgUrl={item.imgUrl}
-                        price={item.price}
-                    />
-            });
-        }
-    }
-
-    handleClickPage = index => {
-        this.setState({
-            indexPage: index
-        })
-    }
-    UNSAFE_componentWillReceiveProps() {
-        console.log('te')
-        this.setState({
-            refCategory: this.props.refCategory
-        })
-    }
-    UNSAFE_componentWillUpdate() {
-        dataCoffeeFb.ref('/' + this.state.refCategory).once('value').then(coffee => {
-            if(coffee.val()) {
-                this.setState({
-                    nameCategory: coffee.val().nameCategory
-                });
-                if(coffee.val().products) {
-                    let tempData = [];
-
-                    Object.keys(coffee.val().products).forEach(key => {
-                        tempData.push(coffee.val().products[key]);
-                    })
-                    let index = Math.ceil(tempData.length/10);
-                    let tempIndexArr = [];
-                    for(let i = 1; i <= index; i++) {
-                        tempIndexArr.push(i)
+    useDeepCompareEffect(() => {
+        if(props.category) {
+            db.collection('cafe')
+                .where('pathCategory', 'array-contains-any', [Slug(props.category)])
+                .get()
+                .then(snapshoot => {
+                    if(snapshoot) {
+                        const tempCafes = snapshoot.docs.map(cafe => {
+                            return {
+                                ...cafe.data(),
+                                docKey: cafe.id
+                            }
+                        });
+                        let index = Math.ceil(tempCafes.length/10);
+                        var tempIndexArr = [];
+                        for(let i = 1; i <= index; i++) {
+                            tempIndexArr.push(i)
+                        }
+                        // if(tempCafes[0]) {
+                        //     setNameCategory(tempCafes[0].nameCategory)
+                        //     console.log(true)
+                        // }
+                        setCafes(tempCafes);
+                        setIndexArr(tempIndexArr);
                     }
-                    this.setState({
-                        dataCoffee: tempData,
-                        indexPageArr: tempIndexArr
-                    })
-                }
-            }
-        })
-    }
+                })
+        }
+    }, [cafes])
 
-    // UNSAFE_componentWillMount() {
-    //     console.log(this.props.refCategory)
-    //     dataCoffeeFb.ref('/' + this.props.refCategory).once('value').then(coffee => {
-    //         if(coffee.val()) {
-    //             this.setState({
-    //                 nameCategory: coffee.val().nameCategory
-    //             });
-    //             if(coffee.val().products) {
-    //                 let tempData = [];
-
-    //                 Object.keys(coffee.val().products).forEach(key => {
-    //                     tempData.push(coffee.val().products[key]);
-    //                 })
-    //                 let index = Math.ceil(tempData.length/10);
-    //                 let tempIndexArr = [];
-    //                 for(let i = 1; i <= index; i++) {
-    //                     tempIndexArr.push(i)
-    //                 }
-    //                 this.setState({
-    //                     dataCoffee: tempData,
-    //                     indexPageArr: tempIndexArr
-    //                 })
-    //             }
-    //         }
-    //     })
-    // }
-
-    render() {
-        console.log(this.props.refCategory)
-        return (
-            <>
-                <div className="row container-products">
-                <h3>{ this.state.nameCategory }</h3>
-                    <ul className="list-products">
+    return (
+        <>
+            <div className="row container-products">
+            <h3>{ props.category }</h3>
+                <ul className="list-products">
+                    {
+                        cafes.map(item => {
+                            return <Product 
+                                    key={ item.docKey }
+                                    name={item.name}
+                                    imgUrl={item.imgUrl}
+                                    price={item.price}
+                                />
+                        })
+                    }
+                </ul>
+                <nav aria-label="Page navigation example">
+                    <ul className="pagination">
                         {
-                            this.state.dataCoffee.map(item => {
-                                return <Product 
-                                        key={ JSON.stringify(item) }
-                                        name={item.name}
-                                        imgUrl={item.imgUrl}
-                                        price={item.price}
-                                    />
+                            indexArr.map(item => {
+                                return <li key={item} className={ indexPage === item ? 'page-item active' : 'page-item'} onClick={ () => handleClickPage(item) } value={item}><div className="page-link page btn">{ item }</div></li>
                             })
                         }
                     </ul>
-                    <nav aria-label="Page navigation example">
-                        <ul className="pagination">
-                            {
-                                this.state.indexPageArr.map(item => {
-                                    return <li key={item} className={ this.state.indexPage === item ? 'page-item active' : 'page-item'} onClick={ () => this.handleClickPage(item) } value={item}><div className="page-link page btn">{ item }</div></li>
-                                })
-                            }
-                        </ul>
-                    </nav>
-                </div>
-            </>
-        )
-    }
+                </nav>
+            </div>
+        </>
+    )
 }
 
 const mapStataToProps = state => {
     return {
-        refCategory: state.refCategory
+        category: state.category
     }
 }
 

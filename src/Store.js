@@ -1,13 +1,13 @@
 import statusSearchForm from './components/reducers/SearchReducer';
 import menuReducer from './components/reducers/MenuReducer';
-import refCategory from './components/reducers/SendRefReducer';
+import category from './components/reducers/SendCategoryReducer';
 
 const redux = require('redux');
 
 const allReducers = redux.combineReducers({
     statusSearchForm,
     menuReducer,
-    refCategory
+    category
 });
 const store = redux.createStore(allReducers);
 

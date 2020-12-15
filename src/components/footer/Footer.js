@@ -3,6 +3,7 @@ import './Footer.css';
 import logo from './thrive_footer_logo_200x114.png'
 
 function Footer() {
+
     return (
         <div className="footer">
             <div className="row justify-content-center">

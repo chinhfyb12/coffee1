@@ -28,34 +28,34 @@ const routes = [
     },
     {
         path: '/ca-phe-trung-nguyen-cao-cap',
-        exact: false,
+        exact: true,
         main: () => <ListProducts />
     },
     {
         path: '/ca-phe-rang-xay',
-        exact: false,
+        exact: true,
         main: () => <ListProducts />,
         routes: [
             {
                 path: '/ca-phe-rang-xay/ca-phe-vien-nen-trung-nguyen',
-                exact: false,
+                exact: true,
                 main: () => <ListProducts />
             },
             {
                 path: '/ca-phe-rang-xay/rang-xay-pho-thong',
-                exact: false,
+                exact: true,
                 main: () => <ListProducts />
             }
         ]
     },
     {
         path: '/ca-phe-con-soc',
-        exact: false,
+        exact: true,
         main: () => <ListProducts />
     },
     {
         path: '/ca-phe-hoa-tan',
-        exact: false,
+        exact: true,
         main: () => <ListProducts />
     }
 ]
