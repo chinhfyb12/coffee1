@@ -44,7 +44,9 @@ function Products(props) {
                 {
                     listProducts.map((product, index) => {
                         return <Product 
-                            key={index}
+                            pathName={ Slug(props.nameProducts) }
+                            key={product.docKey}
+                            keyProduct={ product.docKey }
                             name={product.name}
                             price={product.price}
                             imgUrl={product.imgUrl}

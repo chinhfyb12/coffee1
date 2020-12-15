@@ -1,9 +1,10 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import { Switch, Route } from "react-router-dom";
 import routes from '../../routes';
+import ProductDetail from '../productdetail/ProductDetail';
 
-function RouterURL() {
-
+function RouterURL(props) {
     function showRouterURL(routes) {
         let result = null;
         if(routes) {
@@ -22,8 +23,17 @@ function RouterURL() {
         <Switch>
             { showRouterURL(routes) }
             { showRouterURL(routes[5].routes) }
+            <Route path={`/${props.pathProduct}`} exact={true}>
+                <ProductDetail />
+            </Route>
         </Switch>
     )
 }
 
-export default RouterURL;
+const mapStateToProps = state => {
+    return {
+        pathProduct: state.pathProduct
+    }
+}
+
+export default connect(mapStateToProps)(RouterURL);

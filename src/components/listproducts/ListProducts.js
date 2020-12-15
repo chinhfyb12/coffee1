@@ -20,6 +20,7 @@ function ListProducts (props) {
         if(props.category) {
             db.collection('cafe')
                 .where('pathCategory', 'array-contains-any', [Slug(props.category)])
+                .orderBy("name")
                 .get()
                 .then(snapshoot => {
                     if(snapshoot) {
@@ -34,10 +35,6 @@ function ListProducts (props) {
                         for(let i = 1; i <= index; i++) {
                             tempIndexArr.push(i)
                         }
-                        // if(tempCafes[0]) {
-                        //     setNameCategory(tempCafes[0].nameCategory)
-                        //     console.log(true)
-                        // }
                         setCafes(tempCafes);
                         setIndexArr(tempIndexArr);
                     }
@@ -53,7 +50,9 @@ function ListProducts (props) {
                     {
                         cafes.map(item => {
                             return <Product 
+                                    pathName={ Slug(props.category) }
                                     key={ item.docKey }
+                                    keyProduct={ item.docKey }
                                     name={item.name}
                                     imgUrl={item.imgUrl}
                                     price={item.price}
@@ -75,10 +74,10 @@ function ListProducts (props) {
     )
 }
 
-const mapStataToProps = state => {
+const mapStateToProps = state => {
     return {
         category: state.category
     }
 }
 
-export default connect(mapStataToProps)(ListProducts);
+export default connect(mapStateToProps)(ListProducts);

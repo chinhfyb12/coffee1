@@ -15,7 +15,7 @@
           align-items: center;
   border: none;
   width: 100%;
-  padding-top: 0.5rem;
+  padding-top: 1rem;
   padding-bottom: 0.5rem;
 }
 
@@ -23,10 +23,20 @@
   text-align: center;
   padding: 1rem;
   padding-bottom: 0;
+  width: 60%;
+  padding: 0;
+  overflow: hidden;
+}
+
+.product .card .box-img:hover img {
+  -webkit-transform: scale(1.05);
+          transform: scale(1.05);
 }
 
 .product .card img {
   width: 80%;
+  -webkit-transition: .3s;
+  transition: .3s;
 }
 
 .product .card .card-body {

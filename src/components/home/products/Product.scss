@@ -7,15 +7,24 @@
         align-items: center;
         border: none;
         width: 100%;
-        padding-top: 0.5rem;
+        padding-top: 1rem;
         padding-bottom: 0.5rem;
         .box-img {
             text-align: center;
             padding: 1rem;
             padding-bottom: 0;
+            width: 60%;
+            padding: 0;
+            overflow: hidden;
+            &:hover {
+                img {
+                    transform: scale(1.05);
+                }
+            }
         }
         img {
             width: 80%;
+            transition: .3s;
         }
         .card-body {
             display: flex;

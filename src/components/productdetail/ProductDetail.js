@@ -2,8 +2,12 @@ import React, { useState } from 'react';
 import Product from '../home/products/Product';
 import './ProductDetail.css';
 import formatMoney from '../../FormatMoney';
+import { connect } from 'react-redux';
+import db from '../../firebase';
+import useDeepCompareEffect from 'use-deep-compare-effect';
+import Slug from '../../Slug';
 
-function ProductDetail() {
+function ProductDetail(props) {
 
     const initProduct = {
         imgUrl: "https://www.lwrfarmersmarket.org/mm5/graphics/00000001/medium%20whole_test.png",
@@ -48,7 +52,15 @@ function ProductDetail() {
         }
     ]
 
-    const [product, setProduct] = useState(initProduct);
+    const [product, setProduct] = useState({
+        imgUrl: '',
+        name: '',
+        price: '',
+        quantity: 1,
+        codeProduct: '',
+        guarantee: 0,
+        intro: ''
+    });
     function handleClickSubtract() {
         if(product.quantity > 1) {
             setProduct({...product, quantity: product.quantity - 1})
@@ -57,6 +69,19 @@ function ProductDetail() {
     function handleClickAdd() {
         setProduct({...product, quantity: product.quantity + 1})
     }
+    useDeepCompareEffect(() => {
+        db.collection('cafe')
+            .doc(props.keyProduct)
+            .get()
+            .then(item => {
+                setProduct({
+                    ...item.data(),
+                    price: item.data().price.toString()
+                })
+            })
+        // db.collection('cafe')
+        //     .where('nameCategory', '==', product.nameCategory)
+    }, [listProducts])
 
     return(
         <>
@@ -104,4 +129,10 @@ function ProductDetail() {
     )
 }
 
-export default ProductDetail;
+const mapStateToProps = state => {
+    return {
+        keyProduct: state.keyProduct
+    }
+}
+
+export default connect(mapStateToProps)(ProductDetail);
