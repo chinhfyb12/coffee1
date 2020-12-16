@@ -24,11 +24,6 @@ function Products(props) {
                                 docKey: cafe.id
                             }
                         });
-                        let index = Math.ceil(tempCafes.length/10);
-                        var tempIndexArr = [];
-                        for(let i = 1; i <= index; i++) {
-                            tempIndexArr.push(i)
-                        }
                         setListProducts(tempCafes);
                     }
                 })
@@ -44,12 +39,13 @@ function Products(props) {
                 {
                     listProducts.map((product, index) => {
                         return <Product 
-                            pathName={ Slug(props.nameProducts) }
+                            pathName={ product.nameCategoryParent === undefined ? Slug(product.nameCategory) : `${Slug(product.nameCategoryParent)}/${Slug(product.nameCategory)}` }
                             key={product.docKey}
-                            keyProduct={ product.docKey }
+                            keyProduct={ product.codeProduct }
                             name={product.name}
                             price={product.price}
                             imgUrl={product.imgUrl}
+                            nameCategory={product.nameCategory}
                         />
                     })
                 }

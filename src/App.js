@@ -4,10 +4,17 @@ import Footer from './components/footer/Footer';
 import './components/navbar/Navbar.css';
 import './components/cart/Cart.css';
 import Navbar from './components/navbar/Navbar';
-import { BrowserRouter as Router } from "react-router-dom";
+import { BrowserRouter as Router} from "react-router-dom";
 import RouterURL from './components/router/RouterURL';
+import { connect } from 'react-redux';
 
-function App() {
+function App(props) {
+
+  const initPathname = window.location.pathname;
+  if(initPathname) {
+    props.sendInitPathname(initPathname);
+  }
+
   return (
     <Router>
       <div className="container-fluid">
@@ -19,4 +26,10 @@ function App() {
   );
 }
 
-export default App;
+const mapDispatchToProps = dispatch => {
+  return {
+    sendInitPathname: initPathname => dispatch({type: "SEND_INIT_PATHNAME", initPathname})
+  }
+}
+
+export default connect(null, mapDispatchToProps)(App);

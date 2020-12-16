@@ -1,25 +1,27 @@
 import React, { useState } from 'react';
-import { connect } from 'react-redux';
 import Product from '../home/products/Product';
 import './ListProducts.css';
 import db from '../../firebase';
 import useDeepCompareEffect from 'use-deep-compare-effect';
 import Slug from '../../Slug';
+import { useRouteMatch } from 'react-router-dom';
 
-function ListProducts (props) {
+function ListProducts () {
     const [indexPage, setIndexPage] = useState(1);
     const [cafes, setCafes] = useState([]);
     const [indexArr, setIndexArr] = useState([1]);
-    // const [nameCategory, setNameCategory] = useState(null);
+    const [nameCategory, setNameCategory] = useState(null);
 
     function handleClickPage(item) {
         setIndexPage(item);
     }
 
+    const { path } = useRouteMatch();
+
     useDeepCompareEffect(() => {
-        if(props.category) {
+        if(path.slice(path.lastIndexOf('/') + 1)) {
             db.collection('cafe')
-                .where('pathCategory', 'array-contains-any', [Slug(props.category)])
+                .where('pathCategory', 'array-contains-any', [path.slice(path.lastIndexOf('/') + 1)])
                 .orderBy("name")
                 .get()
                 .then(snapshoot => {
@@ -35,6 +37,11 @@ function ListProducts (props) {
                         for(let i = 1; i <= index; i++) {
                             tempIndexArr.push(i)
                         }
+                        if(Slug(tempCafes[0].nameCategory) === path.slice(path.lastIndexOf('/') + 1)) {
+                            setNameCategory(tempCafes[0].nameCategory)
+                        } else {
+                            setNameCategory(tempCafes[0].nameCategoryParent)
+                        }
                         setCafes(tempCafes);
                         setIndexArr(tempIndexArr);
                     }
@@ -45,14 +52,14 @@ function ListProducts (props) {
     return (
         <>
             <div className="row container-products">
-            <h3>{ props.category }</h3>
+            <h3>{ nameCategory }</h3>
                 <ul className="list-products">
                     {
                         cafes.map(item => {
                             return <Product 
-                                    pathName={ Slug(props.category) }
+                                    pathName={ item.nameCategoryParent === undefined ? Slug(item.nameCategory) : `${Slug(item.nameCategoryParent)}/${Slug(item.nameCategory)}` }
                                     key={ item.docKey }
-                                    keyProduct={ item.docKey }
+                                    keyProduct={ item.codeProduct }
                                     name={item.name}
                                     imgUrl={item.imgUrl}
                                     price={item.price}
@@ -74,10 +81,4 @@ function ListProducts (props) {
     )
 }
 
-const mapStateToProps = state => {
-    return {
-        category: state.category
-    }
-}
-
-export default connect(mapStateToProps)(ListProducts);
+export default ListProducts;

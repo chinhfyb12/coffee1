@@ -1,57 +1,26 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Product from '../home/products/Product';
 import './ProductDetail.css';
 import formatMoney from '../../FormatMoney';
-import { connect } from 'react-redux';
 import db from '../../firebase';
-import useDeepCompareEffect from 'use-deep-compare-effect';
 import Slug from '../../Slug';
+import { Link, useRouteMatch } from 'react-router-dom';
 
-function ProductDetail(props) {
-
-    const initProduct = {
-        imgUrl: "https://www.lwrfarmersmarket.org/mm5/graphics/00000001/medium%20whole_test.png",
-        name: "Cà phê 1",
-        price: "10000000",
-        quantity: 1,
-        codeProduct: 'A550',
-        guarantee: 24,
-        intro: 'lorem dafsdf;asldfa;shdfklhkashfiuwhfkashdflashdfauy kshgal g asdfhaks dflash as fnakshf as fas'
+function ProductDetail() {
+    const match = useRouteMatch();
+    let pid; //id product
+    if(match.params.id === undefined) {
+        pid = match.path.slice(match.path.lastIndexOf('.') + 1);
+    } else {
+        pid = match.params.id
     }
 
-    const listProducts = [
-        {
-            id: 0,
-            imgUrl: 'https://www.lwrfarmersmarket.org/mm5/graphics/00000001/medium%20whole_test.png',
-            name: 'Cà phê 1',
-            price: '10000000'
-        },
-        {
-            id: 1,
-            imgUrl: 'https://www.lwrfarmersmarket.org/mm5/graphics/00000001/medium%20whole_test.png',
-            name: 'Cà phê 1',
-            price: '10000000'
-        },
-        {
-            id: 2,
-            imgUrl: 'https://www.lwrfarmersmarket.org/mm5/graphics/00000001/medium%20whole_test.png',
-            name: 'Cà phê 1',
-            price: '10000000'
-        },
-        {
-            id: 3,
-            imgUrl: 'https://www.lwrfarmersmarket.org/mm5/graphics/00000001/medium%20whole_test.png',
-            name: 'Cà phê 1',
-            price: '10000000'
-        },
-        {
-            id: 4,
-            imgUrl: 'https://www.lwrfarmersmarket.org/mm5/graphics/00000001/medium%20whole_test.png',
-            name: 'Cà phê 1',
-            price: '10000000'
-        }
-    ]
+    let pathCategory = match.path.slice(1, match.path.lastIndexOf('/'));
+    if(pathCategory.indexOf('/') >= 0) {
+        pathCategory = pathCategory.slice(pathCategory.indexOf('/') + 1);
+    }
 
+    const [listProducts, setListProducts] = useState([])
     const [product, setProduct] = useState({
         imgUrl: '',
         name: '',
@@ -61,6 +30,7 @@ function ProductDetail(props) {
         guarantee: 0,
         intro: ''
     });
+
     function handleClickSubtract() {
         if(product.quantity > 1) {
             setProduct({...product, quantity: product.quantity - 1})
@@ -69,19 +39,38 @@ function ProductDetail(props) {
     function handleClickAdd() {
         setProduct({...product, quantity: product.quantity + 1})
     }
-    useDeepCompareEffect(() => {
+
+    useEffect(() => {
         db.collection('cafe')
-            .doc(props.keyProduct)
+            .where('codeProduct', '==', pid)
             .get()
-            .then(item => {
-                setProduct({
-                    ...item.data(),
-                    price: item.data().price.toString()
+            .then(snapshoot => {
+                snapshoot.docs.forEach(doc => {
+                    setProduct({
+                        ...doc.data(),
+                        price: doc.data().price.toString(),
+                        quantity: 1
+                    })
                 })
             })
-        // db.collection('cafe')
-        //     .where('nameCategory', '==', product.nameCategory)
-    }, [listProducts])
+        console.log('test')
+        db.collection('cafe')
+        .where('pathCategory', 'array-contains-any', [pathCategory])
+        .where('codeProduct', '!=', pid)
+        .limit(5)
+        .get()
+        .then(snapshoot => {
+            if(snapshoot) {
+                const tempCafes = snapshoot.docs.map(cafe => {
+                    return {
+                        ...cafe.data(),
+                        docKey: cafe.id
+                    }
+                });
+                setListProducts(tempCafes);
+            }
+        })
+    }, [pid])
 
     return(
         <>
@@ -111,15 +100,18 @@ function ProductDetail(props) {
             </div>
             <div className="row same-products">
                 <h3>Sản phẩm cùng danh mục</h3>
-                <a href="#1" className="more nav-link">Xem tất cả</a>
+                <Link to={`/${match.path.slice(1, match.path.lastIndexOf('/'))}`} className="more nav-link">Xem tất cả</Link>
                 <ul className="list-products">
                     {
                         listProducts.map(item => {
                             return <Product
-                                    key={item.id}
+                                    pathName={ item.nameCategoryParent === undefined ? Slug(item.nameCategory) : `${Slug(item.nameCategoryParent)}/${Slug(item.nameCategory)}` }
+                                    key={ item.docKey }
+                                    keyProduct={ item.codeProduct }
                                     name={item.name}
                                     imgUrl={item.imgUrl}
                                     price={item.price}
+                                    nameCategory={item.nameCategory}
                                 />
                         })
                     }
@@ -129,10 +121,4 @@ function ProductDetail(props) {
     )
 }
 
-const mapStateToProps = state => {
-    return {
-        keyProduct: state.keyProduct
-    }
-}
-
-export default connect(mapStateToProps)(ProductDetail);
+export default ProductDetail;

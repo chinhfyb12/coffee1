@@ -23,7 +23,7 @@ function RouterURL(props) {
         <Switch>
             { showRouterURL(routes) }
             { showRouterURL(routes[5].routes) }
-            <Route path={`/${props.pathProduct}`} exact={true}>
+            <Route path={props.pathProduct === null ? props.initPathname : `/${props.pathProduct}/:slug.:id`} exact={true}>
                 <ProductDetail />
             </Route>
         </Switch>
@@ -32,7 +32,8 @@ function RouterURL(props) {
 
 const mapStateToProps = state => {
     return {
-        pathProduct: state.pathProduct
+        pathProduct: state.pathProduct,
+        initPathname: state.initPathname
     }
 }
 
