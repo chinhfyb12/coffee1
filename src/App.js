@@ -17,6 +17,7 @@ function App(props) {
 
   return (
     <Router>
+      { props.statusLoader ? <p><span></span></p> : ''}
       <div className="container-fluid">
         <Navbar />
         <RouterURL />
@@ -31,5 +32,10 @@ const mapDispatchToProps = dispatch => {
     sendInitPathname: initPathname => dispatch({type: "SEND_INIT_PATHNAME", initPathname})
   }
 }
+const mapStateToProps = state => {
+  return {
+      statusLoader: state.statusLoader
+  }
+}
 
-export default connect(null, mapDispatchToProps)(App);
+export default connect(mapStateToProps, mapDispatchToProps)(App);

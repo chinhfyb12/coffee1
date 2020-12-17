@@ -22,7 +22,7 @@ function RouterURL(props) {
     return(
         <Switch>
             { showRouterURL(routes) }
-            { showRouterURL(routes[5].routes) }
+            { showRouterURL(routes[6].routes) }
             <Route path={props.pathProduct === null ? props.initPathname : `/${props.pathProduct}/:slug.:id`} exact={true}>
                 <ProductDetail />
             </Route>

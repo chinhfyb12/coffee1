@@ -5,7 +5,7 @@ import Slug from '../../../Slug';
 import './Products.css';
 import { connect } from 'react-redux';
 import useDeepCompareEffect from 'use-deep-compare-effect';
-import db from '../../../firebase';
+import { db } from '../../../firebase';
 
 function Products(props) {
 
@@ -15,8 +15,7 @@ function Products(props) {
         db.collection('cafe')
                 .where('pathCategory', 'array-contains-any', [Slug(props.nameProducts)])
                 .limit(3)
-                .get()
-                .then(snapshoot => {
+                .onSnapshot(snapshoot => {
                     if(snapshoot) {
                         const tempCafes = snapshoot.docs.map(cafe => {
                             return {

@@ -1,9 +1,62 @@
 import React, { useState } from 'react';
 import './Login.css';
+import { db, auth } from '../../firebase';
+import { useHistory } from 'react-router-dom';
+import { connect } from 'react-redux';
 
-function Login() {
+function Login(props) {
 
+    let history = useHistory();
+
+    const [email, setEmail] = useState(null);
+    const [password, setPassword] = useState(null);
+    const [passwordAuth, setPasswordAuth] = useState(null);
+    const [displayName, setDisplayName] = useState(null);
     const [signUp, setSignUp] = useState(false);
+
+    function handleClickSignUp(e) {
+        e.preventDefault();
+        if(email && password && password === passwordAuth && displayName) {
+            props.changeStatusLoader(true)
+            auth.createUserWithEmailAndPassword(email, password)
+                .then(result => {
+                    return result.user.updateProfile({
+                        displayName
+                    }).then(() => {
+                        db.collection('users').doc(result.user.uid).set({
+                            cart: [
+                                {
+                                    name: null,
+                                    price: null,
+                                    path: null,
+                                    quantity: null,
+                                    codeProduct: null
+                                }
+                            ],
+                            password
+                        }).then(() => {
+                            history.push('/')
+                            props.changeStatusLoader(false)
+                        })
+                    })
+                })
+        }
+    }
+    function handleClickSignIn(e) {
+        e.preventDefault();
+        if(email && password) {
+            props.changeStatusLoader(true)
+            auth.signInWithEmailAndPassword(email, password)
+                .then(() => {
+                    history.push('/')
+                    props.changeStatusLoader(false)
+                })
+        }
+    }
+    function handleClickCreateAccount() {
+        setSignUp(!signUp)
+        document.getElementById('form-log').reset();
+    }
 
     return (
         <>
@@ -16,22 +69,22 @@ function Login() {
                     </div>
                     <div className="login col-5  d-flex justify-content-center align-items-center">
                         <div className="box d-flex justify-content-center align-items-center">
-                            <form>
+                            <form id="form-log">
                                 <h2>Welcome to Coffee Store!</h2>
-                                <input className="form-control" type="text" name="fUsername" placeholder="Tên đăng nhập"/>
-                                <input className="form-control" type="password" name="fPass" placeholder="Mật khẩu"/>
+                                { signUp ? <input onChange={ e => setDisplayName(e.target.value)} className="form-control" type="text" name="nameDisplay" placeholder="Tên hiển thị"/> : <></> }
+                                <input onChange={ e => setEmail(e.target.value)} className="form-control" type="email" name="userName" placeholder="Email"/>
+                                <input onChange={ e => setPassword(e.target.value)} className="form-control" type="password" name="userPassword" placeholder="Mật khẩu"/>
                                 {
                                     signUp ? (<> 
-                                                <input className="form-control" type="password" name="fPass2" placeholder="Nhập lại mật khẩu"/>
+                                                <input onChange={ e => setPasswordAuth(e.target.value)} className="form-control" type="password" name="fPass2" placeholder="Nhập lại mật khẩu"/>
                                                 <div className="box-submit">
-                                                    <div className="btn submit-sign-up" onClick={ () => setSignUp(!signUp) }>Đăng ký</div>
+                                                    <button type="submit" className="btn submit-sign-up" onClick={ e => handleClickSignUp(e) }>Đăng ký</button>
                                                 </div> </>)
                                             : (<div className="box-submit">
-                                                    <div className="btn submit-login">Đăng nhập</div>
-                                                    <div className="btn sign-up" onClick={ () => setSignUp(!signUp) }>Tạo tài khoản</div>
+                                                    <button type="submit" onClick={ e => handleClickSignIn(e) } className="btn submit-login">Đăng nhập</button>
+                                                    <button className="btn sign-up" onClick={ handleClickCreateAccount }>Tạo tài khoản</button>
                                                 </div>)
                                 }
-                                
                             </form>
                         </div>
                     </div>
@@ -41,4 +94,10 @@ function Login() {
     )
 }
 
-export default Login;
+const mapDispatchToProps = dispatch => {
+    return {
+        changeStatusLoader: status => dispatch({type: "STATUS_LOADER", status})
+    }
+}
+
+export default connect(null, mapDispatchToProps)(Login);

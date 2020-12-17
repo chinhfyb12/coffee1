@@ -1,4 +1,5 @@
 import React from 'react';
+import Account from './components/account/Account';
 import Cart from './components/cart/Cart';
 import CheckOut from './components/checkout/CheckOut';
 import Home from './components/home/Home';
@@ -15,6 +16,11 @@ const routes = [
         path: '/login',
         exact: false,
         main: () => <Login />
+    },
+    {
+        path: '/account',
+        exact: false,
+        main: () => <Account />
     },
     {
         path: '/cart',

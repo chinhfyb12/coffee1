@@ -2,6 +2,33 @@
   padding: 0;
 }
 header {
-  
   position: relative;
+}
+#root > p {
+  display: block;
+  margin: 0;
+  position: sticky;
+  width: 100%;
+  height: 5px;
+  left: 0;
+  top: 0;
+  background: #d1c3ff;
+  overflow: hidden;
+  z-index: 999;
+}
+#root > p > span {
+  display: block;
+  width: 30%;
+  height: 100%;
+  background: #903bff;
+  transform: translateX(-100%);
+  animation: amt-loader 2s infinite;
+}
+@keyframes amt-loader {
+  0% {
+      transform: translateX(-100%);
+  }
+  100% {
+      transform: translateX(350%);
+  }
 }

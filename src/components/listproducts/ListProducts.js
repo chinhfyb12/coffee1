@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 import Product from '../home/products/Product';
 import './ListProducts.css';
-import db from '../../firebase';
+import { db } from '../../firebase';
 import useDeepCompareEffect from 'use-deep-compare-effect';
 import Slug from '../../Slug';
 import { useRouteMatch } from 'react-router-dom';
+import { connect } from 'react-redux';
 
-function ListProducts () {
+function ListProducts(props) {
     const [indexPage, setIndexPage] = useState(1);
     const [cafes, setCafes] = useState([]);
     const [indexArr, setIndexArr] = useState([1]);
@@ -23,8 +24,7 @@ function ListProducts () {
             db.collection('cafe')
                 .where('pathCategory', 'array-contains-any', [path.slice(path.lastIndexOf('/') + 1)])
                 .orderBy("name")
-                .get()
-                .then(snapshoot => {
+                .onSnapshot(snapshoot => {
                     if(snapshoot) {
                         const tempCafes = snapshoot.docs.map(cafe => {
                             return {
@@ -44,6 +44,7 @@ function ListProducts () {
                         }
                         setCafes(tempCafes);
                         setIndexArr(tempIndexArr);
+                        props.changeStatusLoader(false)
                     }
                 })
         }
@@ -81,4 +82,10 @@ function ListProducts () {
     )
 }
 
-export default ListProducts;
+const mapDispatchToProps = dispatch => {
+    return {
+        changeStatusLoader: status => dispatch({type: "STATUS_LOADER", status})
+    }
+}
+
+export default connect(null, mapDispatchToProps)(ListProducts);

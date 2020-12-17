@@ -9,11 +9,7 @@ function Product(props) {
 
     function handleClick() {
         props.sendPath(`${props.pathName}`);
-        props.sendParamsProduct({
-            keyProduct: props.keyProduct,
-            nameCategory: props.nameCategory,
-            name: props.name
-        })
+        props.changeStatusLoader(true);
     }
 
     return (
@@ -33,7 +29,7 @@ function Product(props) {
 const mapDispatchToProps = dispatch => {
     return {
         sendPath: path => dispatch({type: "SEND_PATH", path}),
-        sendParamsProduct: paramsProduct => dispatch({type: "SEND_PARAMS", paramsProduct})
+        changeStatusLoader: status => dispatch({type: "STATUS_LOADER", status})
     }
 }
 

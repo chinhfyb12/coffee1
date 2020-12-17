@@ -2,11 +2,12 @@ import React, { useEffect, useState } from 'react';
 import Product from '../home/products/Product';
 import './ProductDetail.css';
 import formatMoney from '../../FormatMoney';
-import db from '../../firebase';
+import { db } from '../../firebase';
 import Slug from '../../Slug';
 import { Link, useRouteMatch } from 'react-router-dom';
+import { connect } from 'react-redux';
 
-function ProductDetail() {
+function ProductDetail(props) {
     const match = useRouteMatch();
     let pid; //id product
     if(match.params.id === undefined) {
@@ -43,8 +44,7 @@ function ProductDetail() {
     useEffect(() => {
         db.collection('cafe')
             .where('codeProduct', '==', pid)
-            .get()
-            .then(snapshoot => {
+            .onSnapshot(snapshoot => {
                 snapshoot.docs.forEach(doc => {
                     setProduct({
                         ...doc.data(),
@@ -53,13 +53,11 @@ function ProductDetail() {
                     })
                 })
             })
-        console.log('test')
         db.collection('cafe')
         .where('pathCategory', 'array-contains-any', [pathCategory])
         .where('codeProduct', '!=', pid)
         .limit(5)
-        .get()
-        .then(snapshoot => {
+        .onSnapshot(snapshoot => {
             if(snapshoot) {
                 const tempCafes = snapshoot.docs.map(cafe => {
                     return {
@@ -68,6 +66,7 @@ function ProductDetail() {
                     }
                 });
                 setListProducts(tempCafes);
+                props.changeStatusLoader(false)
             }
         })
     }, [pid])
@@ -121,4 +120,10 @@ function ProductDetail() {
     )
 }
 
-export default ProductDetail;
+const mapDispatchToProps = dispatch => {
+    return {
+        changeStatusLoader: status => dispatch({type: "STATUS_LOADER", status})
+    }
+}
+
+export default connect(null, mapDispatchToProps)(ProductDetail);

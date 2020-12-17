@@ -81,7 +81,12 @@
 }
 
 .box-login .row .login .box form .box-submit .btn.submit-login {
+  margin: 0;
   margin-right: 10px;
+}
+
+.box-login .row .login .box form .box-submit .btn.submit-sign-up {
+  margin: 0;
 }
 
 .box-login .row .login .box form .box-submit .btn:hover {

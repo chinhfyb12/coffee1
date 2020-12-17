@@ -1,14 +1,28 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { Link } from "react-router-dom";
 import Menu from '../menu/Menu';
 import Search from '../search/Search';
 import './Navbar.css';
-
+import { auth } from '../../firebase';
 function Navbar(props) {
+
+    const [isLogin, setIsLogin] = useState(false);
+
+    useEffect(() => {
+        auth.onAuthStateChanged(user => {
+            if(user) {
+                setIsLogin(true)
+            }
+            if(user === null) {
+                setIsLogin(false)
+            }
+        })
+    }, [])
+
     return (
         <>
-            <nav className="navbar navbar-expand-md">
+            <nav className="navbar navbar-expand-md nav-header">
                 { props.statusSearchForm ? <Search /> : '' }
                 <Menu />
                 <ul className="navbar-nav">
@@ -24,7 +38,7 @@ function Navbar(props) {
                         <Link exact="true" to="/"><img src="/lwr_logo.png" alt="Logo"/></Link>
                     </div>
                     <div className="box2">
-                        <Link to="/login" className="nav-item__icon">
+                        <Link to={ isLogin ? '/account' : '/login' } className="nav-item__icon">
                             <i className="far fa-user-circle"></i>
                         </Link>
                         <Link to="/cart" className="nav-item__icon">
