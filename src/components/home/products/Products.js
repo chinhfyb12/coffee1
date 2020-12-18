@@ -11,6 +11,8 @@ function Products(props) {
 
     const [listProducts, setListProducts] = useState([]);
     
+    let widthScreen = window.innerWidth;
+
     useDeepCompareEffect(() => {
         db.collection('cafe')
                 .where('pathCategory', 'array-contains-any', [Slug(props.nameProducts)])
@@ -30,7 +32,7 @@ function Products(props) {
 
     return (
         <div className="products container-fluid">
-            <ul className={"list-products order-" + props.order}>
+            <ul className={`list-products order-${widthScreen <= 1040 ? '1' : props.order}`}>
                 <li className="title-product">
                     <h1>{props.nameProducts}</h1>
                     <Link onClick={ () => props.sendCategory(props.nameProducts)} className="nav-link" to={ '/' + Slug(props.nameProducts) }>MORE <i className="fas fa-long-arrow-alt-right"></i></Link>

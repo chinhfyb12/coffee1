@@ -40,6 +40,17 @@ function ProductDetail(props) {
     function handleClickAdd() {
         setProduct({...product, quantity: product.quantity + 1})
     }
+    
+    function handleClickAddToCart() {
+        props.sendProduct({
+            name: product.name,
+            imgUrl: product.imgUrl,
+            price: product.price,
+            quantity: product.quantity,
+            keyProduct: product.codeProduct,
+            pathName: product.nameCategoryParent === undefined ? Slug(product.nameCategory) : `${Slug(product.nameCategoryParent)}/${Slug(product.nameCategory)}`
+        })
+    }
 
     useEffect(() => {
         db.collection('cafe')
@@ -53,6 +64,10 @@ function ProductDetail(props) {
                     })
                 })
             })
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
         db.collection('cafe')
         .where('pathCategory', 'array-contains-any', [pathCategory])
         .where('codeProduct', '!=', pid)
@@ -92,8 +107,7 @@ function ProductDetail(props) {
                     </div>
                     <p className="total">Tổng tiền: <span>{ formatMoney((product.price) * (product.quantity)) } ₫</span></p>
                     <div className="box-checkout">
-                        <div className="btn add-cart">Add to cart</div>
-                        <div className="btn buy">Buy now</div>
+                        <div onClick={ handleClickAddToCart } className="btn add-cart">Add to cart</div>
                     </div>
                 </div>
             </div>
@@ -122,7 +136,8 @@ function ProductDetail(props) {
 
 const mapDispatchToProps = dispatch => {
     return {
-        changeStatusLoader: status => dispatch({type: "STATUS_LOADER", status})
+        changeStatusLoader: status => dispatch({type: "STATUS_LOADER", status}),
+        sendProduct: product => dispatch({type: "SEND_LIST_PRODUCT",product})
     }
 }
 

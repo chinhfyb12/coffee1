@@ -40,6 +40,8 @@
       -ms-flex-align: center;
           align-items: center;
   border-bottom: 1px dashed #cccccc;
+  padding-bottom: 5px;
+  margin-bottom: 10px;
 }
 
 .account .box-account .box-infor .field .field-txt {
@@ -54,10 +56,16 @@
   color: #d8d8d8;
   -webkit-transition: .3s;
   transition: .3s;
+  margin-bottom: 0;
 }
 
 .account .box-account .box-infor .field .btn-edit:hover {
   color: #444444;
+}
+
+.account .box-account .box-infor .field .btn-edit.btn-submit {
+  border: 1px solid;
+  padding: 0.1rem 0.5rem;
 }
 
 .account .box-account .logout {

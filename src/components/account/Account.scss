@@ -24,6 +24,8 @@
                 display: flex;
                 align-items: center;
                 border-bottom: 1px dashed #cccccc;
+                padding-bottom: 5px;
+                margin-bottom: 10px;
                 .field-txt {
                     margin-left: 10px;
                     font-weight: bold;
@@ -34,8 +36,13 @@
                     margin-right: 0;
                     color: #d8d8d8;
                     transition: .3s;
+                    margin-bottom: 0;
                     &:hover {
                         color: #444444;
+                    }
+                    &.btn-submit {
+                        border: 1px solid;
+                        padding: 0.1rem 0.5rem;
                     }
                 }
             }

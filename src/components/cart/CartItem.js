@@ -1,10 +1,13 @@
 import React, { useState } from 'react';
+import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import formatMoney from '../../FormatMoney';
+import Slug from '../../Slug';
 
 function CartItem(props) {
 
     const [product, setProduct] = useState({
-        id: props.id,
+        keyProduct: props.keyProduct,
         quantity: props.quantity
     });
     function handleClickAdd() {
@@ -17,8 +20,12 @@ function CartItem(props) {
             props.quantityChange({...product, quantity: product.quantity - 1});
         }
     }
-    function handleGetProduct(id) {
-        props.getProductDelete(id)
+    function handleGetProduct(keyProduct) {
+        props.getProductDelete(keyProduct)
+    }
+    function handleClickLink() {
+        props.sendPath(`${props.pathName}`);
+        props.changeStatusLoader(true);
     }
     
     return (
@@ -27,7 +34,7 @@ function CartItem(props) {
                 <p className="img">
                     <img src={ props.imgUrl } alt=""/>
                 </p>
-                <p className="name">{ props.name }</p>
+                <Link onClick={ handleClickLink } to={`/${props.pathName}/${Slug(props.name)}.${props.keyProduct}`} className="name">{ props.name }</Link>
             </div>
             <div className="price-product">{ formatMoney(props.price) } ₫</div>
             <div className="quantity">
@@ -36,9 +43,16 @@ function CartItem(props) {
                 <div className="btn" onClick={ () => handleClickAdd() }>+</div>
             </div>
             <div className="total">{ formatMoney((props.price) * product.quantity) } ₫</div>
-            <div className="delete" onClick={ () => handleGetProduct(props.id) }><span className="btn"><i className="fas fa-times"></i></span></div>
+            <div className="delete" onClick={ () => handleGetProduct(props.keyProduct) }><span className="btn"><i className="fas fa-times"></i></span></div>
         </li>
     )
 }
 
-export default CartItem;
+const mapDispatchToProps = dispatch => {
+    return {
+        sendPath: path => dispatch({type: "SEND_PATH", path}),
+        changeStatusLoader: status => dispatch({type: "STATUS_LOADER", status}),
+    }
+}
+
+export default connect(null, mapDispatchToProps)(CartItem);

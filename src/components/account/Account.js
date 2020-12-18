@@ -2,12 +2,21 @@ import React, { useEffect, useState } from 'react';
 import './Account.css';
 import { auth, db } from '../../firebase';
 import { useHistory } from 'react-router-dom';
+import { connect } from 'react-redux';
 
-const Account = () => {
+const Account = props => {
 
     const [displayName, setDisplayName] = useState(null);
     const [email, setEmail] = useState(null);
     const [password, setPassword] = useState(null);
+
+    const [newEmail, setNewEmail] = useState(null);
+    const [newPass, setNewPass] = useState(null);
+
+    const [stDisplayName, setStDisplayName] = useState(false);
+    const [stEmail, setStEmail] = useState(false);
+    const [stPass, setStPass] = useState(false);
+
     let history = useHistory();
 
     useEffect(() => {
@@ -29,6 +38,51 @@ const Account = () => {
             history.push('/login')
         })
     }
+    function updateDisplayname() {
+        props.changeStatusLoader(true)
+        auth.currentUser.updateProfile({
+            displayName
+        }).then(() => {
+            setStDisplayName(false)
+            props.changeStatusLoader(false)
+        })
+    }
+    function updateEmail() {
+        if(newEmail) {
+            props.changeStatusLoader(true)
+            auth.signInWithEmailAndPassword(email, password)
+                .then(result => {
+                    result.user.updateEmail(newEmail)
+                    .then(() => {
+                        setEmail(newEmail)
+                        setStEmail(false)
+                        props.changeStatusLoader(false)
+                    })
+                })
+        } else {
+            setStEmail(false)
+        }
+    }
+    function updatePassword() {
+        if(newPass) {
+            props.changeStatusLoader(true)
+            auth.signInWithEmailAndPassword(email, password)
+                .then(result => {
+                    result.user.updatePassword(newPass)
+                        .then(() => {
+                            db.collection('users').doc(result.user.uid).update({
+                                password: newPass
+                            }).then(() => {
+                                setPassword(newPass);
+                                setStPass(false);
+                                props.changeStatusLoader(false)
+                            })
+                        })
+                })
+        } else {
+            setStPass(false)
+        }
+    }
 
     return (
         <div className="row account">  
@@ -43,19 +97,41 @@ const Account = () => {
                 </p>
                 <div className="box-infor">
                     <div className="field nameDisplay">
-                        <span className="field-label">Tên hiển thị:</span>
-                        <span className="field-txt">{ displayName }</span>
-                        <p className="btn-edit btn"><i className="far fa-edit"></i></p>
+                        {
+                            stDisplayName ? (
+                                <><input onChange={ e => setDisplayName(e.target.value) } type="text" defaultValue={ displayName } className="ftxt"/>
+                                <button onClick={ updateDisplayname } type="submit" className="btn btn-edit btn-submit">Save</button></>
+                            ) : (
+                                <><span className="field-label">Tên hiển thị:</span>
+                                <span className="field-txt">{ displayName }</span>
+                                <p className="btn-edit btn" onClick={ () => setStDisplayName(true) }><i className="far fa-edit"></i></p></>
+                            )
+                        }
+                        
                     </div>
                     <div className="field nicknameDisplay">
-                        <span className="field-label">Email:</span>
-                        <span className="field-txt">{ email }</span>
-                        <p className="btn-edit btn"><i className="far fa-edit"></i></p>
+                        {
+                            stEmail ? (<>
+                                <><input onChange={ e => setNewEmail(e.target.value) } type="email" defaultValue={ email } className="ftxt"/>
+                                <button onClick={ updateEmail } type="submit" className="btn btn-edit btn-submit">Save</button></>
+                            </>) : (<>
+                                <span className="field-label">Email:</span>
+                                <span className="field-txt">{ email }</span>
+                                <p className="btn-edit btn" onClick={ () => setStEmail(true) }><i className="far fa-edit"></i></p>
+                            </>)
+                        }
                     </div>
                     <div className="field passDisplay">
-                        <span className="field-label">Mật khẩu:</span>
-                        <span className="field-txt">{ password }</span>
-                        <p className="btn-edit btn"><i className="far fa-edit"></i></p>
+                        {
+                            stPass ? (<>
+                                <input onChange={ e => setNewPass(e.target.value) } type="text" defaultValue={ password } className="ftxt"/>
+                                <button onClick={ updatePassword } type="submit" className="btn btn-edit btn-submit">Save</button>
+                            </>) : (<>
+                                <span className="field-label">Mật khẩu:</span>
+                                <span className="field-txt">{ password }</span>
+                                <p className="btn-edit btn" onClick={ () => setStPass(true) }><i className="far fa-edit"></i></p>
+                            </>)
+                        }
                     </div>
                 </div>
                 <p onClick={ logoutFunc } className="logout btn">Đăng xuất</p>
@@ -63,4 +139,11 @@ const Account = () => {
         </div>
     )
 }
-export default Account;
+
+const mapDispatchToProps = dispatch => {
+    return {
+        changeStatusLoader: status => dispatch({type: "STATUS_LOADER", status})
+    }
+}
+
+export default connect(null, mapDispatchToProps)(Account);

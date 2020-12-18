@@ -11,7 +11,17 @@ function Product(props) {
         props.sendPath(`${props.pathName}`);
         props.changeStatusLoader(true);
     }
-
+    function handleClickAddToCart() {
+        props.sendProduct({
+            name: props.name,
+            imgUrl: props.imgUrl,
+            quantity: 1,
+            price: props.price,
+            keyProduct: props.keyProduct,
+            pathName: props.pathName
+        })
+    }
+    
     return (
         <li className="product">
             <div className="card">
@@ -19,7 +29,7 @@ function Product(props) {
                 <div className="card-body">
                     <Link onClick={ handleClick } to={`/${props.pathName}/${Slug(props.name)}.${props.keyProduct}`} className="card-title nav-link">{props.name}</Link>
                     <p className="price">{formatMoney(props.price)} đ</p>
-                    <p className="add btn">Add to cart</p>
+                    <p onClick={ handleClickAddToCart } className="add btn">Add to cart</p>
                 </div>
             </div>
         </li>
@@ -29,7 +39,8 @@ function Product(props) {
 const mapDispatchToProps = dispatch => {
     return {
         sendPath: path => dispatch({type: "SEND_PATH", path}),
-        changeStatusLoader: status => dispatch({type: "STATUS_LOADER", status})
+        changeStatusLoader: status => dispatch({type: "STATUS_LOADER", status}),
+        sendProduct: product => dispatch({type: "SEND_LIST_PRODUCT",product})
     }
 }
 

@@ -13,6 +13,8 @@ function Login(props) {
     const [passwordAuth, setPasswordAuth] = useState(null);
     const [displayName, setDisplayName] = useState(null);
     const [signUp, setSignUp] = useState(false);
+    const [retype, setRetype] = useState(false)
+    const [isSignup, setIsSignup] = useState(false);
 
     function handleClickSignUp(e) {
         e.preventDefault();
@@ -40,6 +42,10 @@ function Login(props) {
                         })
                     })
                 })
+                .catch(() => {
+                    setIsSignup(true);
+                    props.changeStatusLoader(false)
+                })
         }
     }
     function handleClickSignIn(e) {
@@ -49,6 +55,10 @@ function Login(props) {
             auth.signInWithEmailAndPassword(email, password)
                 .then(() => {
                     history.push('/')
+                    props.changeStatusLoader(false)
+                })
+                .catch(() => {
+                    setRetype(true);
                     props.changeStatusLoader(false)
                 })
         }
@@ -71,12 +81,20 @@ function Login(props) {
                         <div className="box d-flex justify-content-center align-items-center">
                             <form id="form-log">
                                 <h2>Welcome to Coffee Store!</h2>
-                                { signUp ? <input onChange={ e => setDisplayName(e.target.value)} className="form-control" type="text" name="nameDisplay" placeholder="Tên hiển thị"/> : <></> }
-                                <input onChange={ e => setEmail(e.target.value)} className="form-control" type="email" name="userName" placeholder="Email"/>
-                                <input onChange={ e => setPassword(e.target.value)} className="form-control" type="password" name="userPassword" placeholder="Mật khẩu"/>
+                                { 
+                                    signUp ? <input onChange={ e => setDisplayName(e.target.value)} className="form-control" type="text" name="nameDisplay" placeholder="Tên hiển thị" required={true}/> : <></> 
+                                }
+                                <input onChange={ e => setEmail(e.target.value)} className="form-control" type="email" name="userName" placeholder="Email" required={true}/>
+                                <input onChange={ e => setPassword(e.target.value)} className="form-control" type="password" name="userPassword" placeholder="Mật khẩu" required={true}/>
+                                {
+                                    retype ? <span className="wrong">Sai thông tin, vui lòng nhập lại!</span> : ''
+                                }
                                 {
                                     signUp ? (<> 
-                                                <input onChange={ e => setPasswordAuth(e.target.value)} className="form-control" type="password" name="fPass2" placeholder="Nhập lại mật khẩu"/>
+                                                <input onChange={ e => setPasswordAuth(e.target.value)} className="form-control" type="password" name="fPass2" placeholder="Nhập lại mật khẩu" required={true}/>
+                                                {
+                                                    isSignup ? <span className="wrong">Đăng ký không thành công, vui lòng nhập lại!</span> : ''
+                                                }
                                                 <div className="box-submit">
                                                     <button type="submit" className="btn submit-sign-up" onClick={ e => handleClickSignUp(e) }>Đăng ký</button>
                                                 </div> </>)

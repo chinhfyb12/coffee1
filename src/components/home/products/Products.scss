@@ -43,3 +43,42 @@
         }
     }
 }
+
+@media (max-width: 1040px) {
+    .products {
+        .list-products {
+            flex-wrap: wrap;
+            justify-content: center;
+            li {
+                &.title-product {
+                    width: 100%;
+                    padding: 2rem;
+                }
+                &.product {
+                    width: 30%;
+                    .cart {
+                        .cart-body {
+                            .add {
+                                margin: 0;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+@media (max-width: 730px) {
+    .products {
+        .list-products {
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            li {
+                &.product {
+                    width: 100%;
+                }
+            }
+        }
+    }
+}

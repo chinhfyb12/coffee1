@@ -24,7 +24,7 @@
   top: -10px;
 }
 
-.product-checkout p.name {
+.product-checkout .name {
   width: 45%;
   margin-left: 10px;
   font-weight: bold;

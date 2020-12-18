@@ -1,26 +1,20 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import './CheckOut.css';
 import Product from './Product';
 import formatMoney from '../../FormatMoney';
+import { connect } from 'react-redux';
 
-function CheckOut() {
+function CheckOut(props) {
 
-    const listProducts = [
-        {
-          imgUrl:
-            "https://www.lwrfarmersmarket.org/mm5/graphics/00000001/medium%20whole_test.png",
-          name: "Cà phê 1",
-          price: "10000000",
-          quantity: 1
-        },
-        {
-          imgUrl:
-            "https://www.lwrfarmersmarket.org/mm5/graphics/00000001/medium%20whole_test.png",
-          name: "Cà phê 1",
-          price: "10000000",
-          quantity: 1
-        },
-      ];
+    const [products, setProducts] = useState([]);
+
+    useEffect(() => {
+        setProducts(props.productsToCheckout);
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+    }, [products])
 
     return (
         <>
@@ -51,11 +45,13 @@ function CheckOut() {
                     <div className="col-6">
                         <ul className="list-products">
                             {
-                                listProducts.map((item, index) => {
+                                products.map((item, index) => {
                                     return <Product 
                                         key={index}
                                         price={item.price}
+                                        keyProduct={item.keyProduct}
                                         name={item.name}
+                                        pathName={ item.pathName }
                                         quantity={item.quantity}
                                         imgUrl={item.imgUrl}
                                     />
@@ -65,7 +61,7 @@ function CheckOut() {
                         <div className="total">Tổng cộng: 
                             <span>
                                 { 
-                                    formatMoney(listProducts.reduce((acc, current) => acc + parseInt(current.price) * parseInt(current.quantity), 0))
+                                    formatMoney(products.reduce((acc, current) => acc + parseInt(current.price) * parseInt(current.quantity), 0))
                                 } ₫
                             </span>
                         </div>
@@ -76,4 +72,10 @@ function CheckOut() {
     )
 }
 
-export default CheckOut;
+const mapStateToProps = state => {
+    return {
+        productsToCheckout: state.productsToCheckout
+    }
+}
+
+export default connect(mapStateToProps)(CheckOut);

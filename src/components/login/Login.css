@@ -71,6 +71,14 @@
   font-size: 13px;
 }
 
+.box-login .row .login .box form span {
+  margin-right: auto;
+  font-size: 0.8rem;
+  font-style: italic;
+  color: #ececec;
+  margin-bottom: 10px;
+}
+
 .box-login .row .login .box form .box-submit .btn {
   color: #505050;
   border-radius: 8px;
