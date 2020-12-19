@@ -32,3 +32,28 @@
         }
     }
 }
+@media (max-width: 768px) {
+    .navbar {
+        padding: 1rem;
+        .navbar-nav {
+            flex-direction: row;
+            justify-content: space-between;
+            .box1, .box2 {
+                margin: 0;
+            }
+        }
+        > .logo {
+            margin-left: auto;
+            margin-right: auto;
+            padding: 1rem;
+            width: 40%;
+        }
+    }
+}
+@media (max-width: 530px ) {
+    .navbar {
+        .navbar-nav {
+            justify-content: center;
+        }
+    }
+}

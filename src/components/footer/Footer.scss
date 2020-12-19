@@ -2,11 +2,20 @@
     background: #f3eded;
     .row {
         width: 100%;
-        .col-3 {
+        margin: 0;
+        padding: 1rem;
+        .col {
             padding: 20px;
             img {
                 width: 200px;
             }
+        }
+    }
+}
+@media (max-width: 530px) {
+    .footer {
+        .row {
+            flex-direction: column;
         }
     }
 }

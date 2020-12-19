@@ -89,12 +89,12 @@ function ProductDetail(props) {
     return(
         <>
             <div className="row product-detail">
-                <div className="col-6 img-product">
+                <div className="col-md-6 img-product">
                     <p className="img">
                         <img src={ product.imgUrl } alt=""/>
                     </p>
                 </div>
-                <div className="col-6 content">
+                <div className="col-md-6 content">
                     <h4 className="name-product">{ product.name }</h4>
                     <p className="codeProduct">Mã sản phẩm: <span>{ product.codeProduct }</span></p>
                     <p className="guarantee">Bảo hành: <span>{ product.guarantee } tháng</span></p>

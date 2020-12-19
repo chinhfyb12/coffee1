@@ -49,3 +49,39 @@
         }
     }
 }
+@media (max-width: 1040px) {
+    .container-products {
+        .list-products {
+            .product {
+                width: 25%;
+            }
+        }
+    }
+}
+@media (max-width: 850px) {
+    .container-products {
+        .list-products {
+            .product {
+                width: 33.33%;
+            }
+        }
+    }
+}
+@media (max-width: 650px) {
+    .container-products {
+        .list-products {
+            .product {
+                width: 50%;
+            }
+        }
+    }
+}
+@media (max-width: 460px) {
+    .container-products {
+        .list-products {
+            .product {
+                width: 100%;
+            }
+        }
+    }
+}

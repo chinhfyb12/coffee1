@@ -1,5 +1,6 @@
 .box-login {
     .row {
+        margin: 0;
         width: 100%;
         .box-svg {
             padding: 0 7rem;
@@ -10,6 +11,7 @@
             }
         }
         .login {
+            padding: 1rem;
             .box {
                 form {
                     display: flex;
@@ -55,6 +57,7 @@
                             font-size: 14px;
                             background-color: white;
                             transition: .3s;
+                            margin: 5px 0;
                             &.submit-login {
                                 margin: 0;
                                 margin-right: 10px;
@@ -76,6 +79,15 @@
                         }
                     }
                 }
+            }
+        }
+    }
+}
+@media (max-width: 576px) {
+    .box-login {
+        .row {
+            .box-svg {
+                padding: 2rem;
             }
         }
     }

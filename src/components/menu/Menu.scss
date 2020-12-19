@@ -65,3 +65,12 @@
         background: #00000078;
     }
 }
+@media (max-width: 768px) {
+    .box-menu {
+        .box {
+            .navbar {
+                padding: 2rem;
+            }
+        }
+    }
+}

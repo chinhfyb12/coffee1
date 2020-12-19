@@ -2,6 +2,7 @@
     position: relative;
     background: url('./hinh-banner-trang-chu.png');
     background-size: cover;
+    background-position: center;
     height: 100vh;
     .box-title {
         width: 475px;
@@ -27,6 +28,24 @@
             line-height: 3.5rem;
             span {
                 font-weight: bold;
+            }
+        }
+    }
+}
+
+@media (max-width: 840px) {
+    .box-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: auto;
+        padding: 4rem 5rem;
+        .box-title {
+            width: auto;
+            position: unset;
+            padding: 1rem 2rem;
+            .title {
+                font-size: 2rem;
             }
         }
     }

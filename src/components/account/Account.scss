@@ -3,6 +3,9 @@
     margin: 0;
     padding: 5rem 0;
     .box-svg {
+        display: flex;
+        justify-content: center;
+        align-items: center;
         .box {
             width: 60%;
             margin-right: auto;
@@ -59,6 +62,13 @@
             &:hover {
                 background: #382cff;
             }
+        }
+    }
+}
+@media (max-width: 768px) {
+    .account {
+        .box-svg, .box-account {
+            padding: 1rem;
         }
     }
 }

@@ -48,7 +48,7 @@ function Cart(props) {
   return (
     <>
       <div className="row box-cart">
-        <div className="col-8 box-cart__products">
+        <div className="col-lg-8 col-md-8 box-cart__products">
           <span>
             <h2>Giỏ hàng của bạn</h2>
           </span>
@@ -76,7 +76,7 @@ function Cart(props) {
             })}
           </ul>
         </div>
-        <div className="col-4 box-total">
+        <div className="col-lg-4 col-md-4 box-total">
           <span></span>
           <p className="cart-total">
             Tổng tiền:
